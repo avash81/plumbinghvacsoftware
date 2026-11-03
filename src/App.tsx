@@ -20,6 +20,10 @@ import { getGuideBySlug } from './lib/guides';
 // Components
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { SEOHead } from './components/SEOHead';
+import { generateMetadata } from './lib/seo';
+import { generateWebsiteSchema } from './lib/seo-schema';
+import { CookieConsentBanner } from './components/CookieConsentBanner';
 
 // Views
 import { HomePage } from './views/HomePage';
@@ -40,7 +44,6 @@ import { AuthorDetailPage } from './views/AuthorDetailPage';
 import { SearchPage } from './views/SearchPage';
 import { NotFoundPage } from './views/NotFoundPage';
 import { getAuthorBySlug, AUTHORS } from './lib/authors';
-import { CookieConsentBanner } from './components/CookieConsentBanner';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -187,6 +190,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#fbfaf8] flex flex-col justify-between text-[#16201f] selection:bg-[#0e6e6a]/20 selection:text-[#0e6e6a]">
+      <SEOHead {...generateMetadata(currentPath)} />
       <div>
         {/* Global Navigation Header */}
         <Header currentRoute={currentPath} onNavigate={navigate} />

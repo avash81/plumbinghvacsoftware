@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Minus, Sparkles } from 'lucide-react';
+import { Check, Minus } from 'lucide-react';
 import { ProductData } from '../types';
 import { AffiliateCTA } from './AffiliateCTA';
 

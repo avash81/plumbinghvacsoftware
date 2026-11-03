@@ -6,7 +6,7 @@ export const PricingCalculator: React.FC = () => {
   const [techCount, setTechCount] = useState<number>(4);
   const [hourlyRate, setHourlyRate] = useState<number>(125);
   const [monthlyInvoices, setMonthlyInvoices] = useState<number>(60);
-  const [selectedSoftware, setSelectedSoftware] = useState<string>('jobber');
+  const [selectedSoftware, setSelectedSoftware] = useState<string>('test-1');
 
   // Input element IDs for accessibility
   const techCountId = useId();
@@ -22,17 +22,11 @@ export const PricingCalculator: React.FC = () => {
   const monthlyValueRecovered = Math.round(monthlyHoursSaved * (hourlyRate * 0.65)); // 65% billable value ratio
 
   // Estimated monthly software cost
-  let estimatedSoftwareCost = 129;
-  if (selectedSoftware === 'quoteiq') {
-    estimatedSoftwareCost = techCount <= 1 ? 29.99 : techCount <= 3 ? 79.99 : 149.99;
-  } else if (selectedSoftware === 'jobber') {
-    estimatedSoftwareCost = techCount <= 1 ? 49 : techCount <= 5 ? 129 : 249;
-  } else if (selectedSoftware === 'housecall-pro') {
-    estimatedSoftwareCost = techCount <= 1 ? 65 : techCount <= 5 ? 129 : 249;
-  } else if (selectedSoftware === 'service-fusion') {
-    estimatedSoftwareCost = 169; // flat rate
-  } else if (selectedSoftware === 'servicetitan') {
-    estimatedSoftwareCost = techCount * 275;
+  let estimatedSoftwareCost = 49;
+  if (selectedSoftware === 'test-1') {
+    estimatedSoftwareCost = techCount <= 1 ? 49 : techCount <= 5 ? 99 : 199;
+  } else if (selectedSoftware === 'test-2') {
+    estimatedSoftwareCost = techCount <= 5 ? 99 : techCount <= 12 ? 189 : 299;
   }
 
   const netMonthlyGain = monthlyValueRecovered - estimatedSoftwareCost;
@@ -147,11 +141,8 @@ export const PricingCalculator: React.FC = () => {
               onChange={(e) => setSelectedSoftware(e.target.value)}
               className="w-full px-3 py-2.5 bg-[#fbfaf8] border border-[#dde3e1] rounded-lg text-xs md:text-sm font-medium text-[#16201f] focus:ring-2 focus:ring-[#0e6e6a]"
             >
-              <option value="quoteiq">QuoteIQ (Flat / Budget Friendly)</option>
-              <option value="jobber">Jobber (Tiered Core / Connect / Grow)</option>
-              <option value="housecall-pro">Housecall Pro (Tiered Essentials / MAX)</option>
-              <option value="service-fusion">Service Fusion (Flat Rate Unlimited Users)</option>
-              <option value="servicetitan">ServiceTitan (Enterprise Per-Tech)</option>
+              <option value="test-1">Test Software 1 (Agile / Tiered $49–$99)</option>
+              <option value="test-2">Test Software 2 (Fleet / Commercial $99–$299)</option>
             </select>
           </div>
         </div>

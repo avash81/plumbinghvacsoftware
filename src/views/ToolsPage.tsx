@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, Sparkles, SlidersHorizontal, Scale, ArrowRight } from 'lucide-react';
+import { Calculator, SlidersHorizontal, Scale, ArrowRight } from 'lucide-react';
 import { SoftwareFinderQuiz } from '../components/SoftwareFinderQuiz';
 import { PricingCalculator } from '../components/PricingCalculator';
 
@@ -15,7 +15,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({ onNavigate }) => {
       {/* Header */}
       <div className="max-w-3xl space-y-3">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-xs font-bold uppercase tracking-wider font-display">
-          <Sparkles className="w-4 h-4 text-amber-500" />
+          <Calculator className="w-3.5 h-3.5 text-[#0e6e6a]" />
           <span>Interactive Decision Tools</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold font-display text-[#16201f]">
@@ -37,7 +37,7 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({ onNavigate }) => {
               : 'bg-white text-[#16201f]/70 border border-[#dde3e1] hover:text-[#0e6e6a]'
           }`}
         >
-          <Sparkles className="w-4 h-4" />
+          <SlidersHorizontal className="w-4 h-4" />
           <span>Software Finder Quiz (4 Questions)</span>
         </button>
 

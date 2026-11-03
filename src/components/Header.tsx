@@ -12,7 +12,7 @@
  */
 
 import React, { useState } from 'react';
-import { Wrench, Menu, X, ChevronDown, Sparkles, Scale, BookOpen, Layers, ShieldCheck, Calculator, Search } from 'lucide-react';
+import { Wrench, Menu, X, ChevronDown, Award, Scale, BookOpen, Layers, ShieldCheck, Calculator } from 'lucide-react';
 
 interface HeaderProps {
   currentRoute: string;
@@ -29,10 +29,9 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate }) => {
   const navLinks = [
     { label: 'Reviews', route: '/software-reviews', icon: Layers },
     { label: 'Compare', route: '/compare', icon: Scale },
-    { label: 'Best Of 2026', route: '/best-of', icon: Sparkles },
+    { label: 'Best Of', route: '/best-of', icon: Award },
     { label: 'Guides', route: '/guides', icon: BookOpen },
     { label: 'Tools', route: '/tools', icon: Calculator },
-    { label: 'Search', route: '/search', icon: Search },
   ];
 
   const handleNav = (route: string) => {
@@ -58,8 +57,8 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate }) => {
               <span className="text-xl xs:text-2xl font-black spec-font tracking-tight text-[#16201f] block leading-none">
                 PHS<span className="text-[#0e6e6a]">.</span>
               </span>
-              <span className="text-[7px] xs:text-[9px] font-bold tracking-tighter xs:tracking-[0.15em] uppercase text-[#16201f]/60 block mt-1 whitespace-nowrap mono-font">
-                RATED · TESTED · TRUSTED
+              <span className="text-[8px] xs:text-[10px] font-bold tracking-tighter xs:tracking-widest uppercase text-[#16201f]/60 block mt-1 whitespace-nowrap">
+                PLUMBING & HVAC SOFTWARE
               </span>
             </div>
           </div>
@@ -95,20 +94,10 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate }) => {
               id="header-quiz-cta"
               type="button"
               onClick={() => handleNav('/tools')}
-              className="px-4 py-2.5 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-xs font-bold uppercase tracking-wider rounded-sm shadow-xs transition-all flex items-center gap-1.5"
+              className="px-4 py-2 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-xs font-bold uppercase tracking-wider rounded-md shadow-xs transition-all flex items-center gap-1.5"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <Calculator className="w-3.5 h-3.5" />
               <span>Software Quiz</span>
-            </button>
-
-            <button
-              id="header-search-trigger"
-              type="button"
-              onClick={() => handleNav('/search')}
-              className="ml-2 p-2.5 text-[#16201f]/60 hover:text-[#0e6e6a] hover:bg-neutral-100 rounded-sm transition-all"
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4 stroke-[2.5]" />
             </button>
           </nav>
 

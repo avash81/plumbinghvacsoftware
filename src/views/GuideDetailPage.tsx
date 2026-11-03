@@ -12,13 +12,12 @@
  */
 
 import React from 'react';
-import { ChevronRight, BookOpen, Clock, User, ShieldCheck, ArrowRight, Sparkles, CheckCircle2, AlertTriangle, Lightbulb } from 'lucide-react';
+import { ChevronRight, BookOpen, Clock, User, ShieldCheck, ArrowRight, Award, CheckCircle2, AlertTriangle, Lightbulb } from 'lucide-react';
 import { GuideArticle } from '../types';
 import { PRODUCTS } from '../lib/products';
 import { FAQAccordion } from '../components/FAQAccordion';
 import { AffiliateCTA } from '../components/AffiliateCTA';
 import { VerifiedDateBadge } from '../components/VerifiedDateBadge';
-import { generateBreadcrumbSchema } from '../lib/seo-schema';
 
 interface GuideDetailPageProps {
   guide: GuideArticle;
@@ -33,19 +32,8 @@ export const GuideDetailPage: React.FC<GuideDetailPageProps> = ({
   guide,
   onNavigate,
 }) => {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://plumbinghvacsoftware.com/' },
-    { name: 'Guides', url: 'https://plumbinghvacsoftware.com/guides/' },
-    { name: guide.title, url: `https://plumbinghvacsoftware.com/guides/${guide.category}/${guide.slug}/` },
-  ]);
-
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#16201f]/50 font-bold">
         <button
@@ -168,7 +156,7 @@ export const GuideDetailPage: React.FC<GuideDetailPageProps> = ({
       {guide.relatedProducts.length > 0 && (
         <section className="space-y-6 pt-10 border-t border-[#dde3e1]">
           <h2 className="text-xl md:text-2xl font-black font-display text-[#16201f] flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#0e6e6a]" />
+            <Award className="w-5 h-5 text-[#0e6e6a]" />
             <span>Recommended Software</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -222,7 +210,7 @@ export const GuideDetailPage: React.FC<GuideDetailPageProps> = ({
             Get the PHS Field Service Scaling Kit
           </h2>
           <p className="text-neutral-400 text-sm md:text-base max-w-xl">
-            Join 4,000+ trade owners receiving our weekly FSM pricing audits, seasonal checklists, and hiring playbooks for plumbing & HVAC.
+            Join our newsletter for weekly FSM pricing audits, seasonal checklists, and hiring playbooks for plumbing & HVAC.
           </p>
         </div>
 

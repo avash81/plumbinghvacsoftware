@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Cookie, Shield, Check, X } from 'lucide-react';
+import { Shield, Check, X } from 'lucide-react';
 
 interface CookieConsentBannerProps {
   onNavigate: (route: string) => void;

@@ -12,42 +12,19 @@
  */
 
 import React from 'react';
-import { Sparkles, ArrowRight, Award, ShieldCheck, CheckCircle, ChevronRight } from 'lucide-react';
+import { ArrowRight, Award, ShieldCheck, CheckCircle, ChevronRight } from 'lucide-react';
 import { BEST_OF_LIST } from '../lib/best-of';
 import { PRODUCTS } from '../lib/products';
-import { SEOHead } from '../components/SEOHead';
-import { generateBreadcrumbSchema, generateCollectionSchema } from '../lib/seo-schema';
 
 interface BestOfHubPageProps {
   onNavigate: (route: string) => void;
 }
 
 export const BestOfHubPage: React.FC<BestOfHubPageProps> = ({ onNavigate }) => {
-  const breadcrumbs = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://plumbinghvacsoftware.com/' },
-    { name: 'Best Of', url: 'https://plumbinghvacsoftware.com/best-of/' },
-  ]);
-
-  const collectionSchema = generateCollectionSchema(
-    'Best Field Service Software Roundups (2026)',
-    'In-depth ranked pillar guides for plumbing and HVAC teams of all sizes.',
-    'https://plumbinghvacsoftware.com/best-of/',
-    BEST_OF_LIST.map((b) => ({
-      name: b.title,
-      url: `https://plumbinghvacsoftware.com/best-of/${b.slug}`,
-    }))
-  );
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      <SEOHead
-        title="Best Field Service Software for Plumbing & HVAC (2026 Top Picks)"
-        description="Ranked pillar roundups for residential plumbing, HVAC dispatch, and ServiceTitan alternatives. Thoroughly tested recommendations."
-        canonicalPath="/best-of"
-        schema={[breadcrumbs, collectionSchema]}
-      />
       {/* Breadcrumb Navigation */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/60 font-body mb-4">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/75 font-body mb-4">
         <button
           type="button"
           onClick={() => onNavigate('/')}
@@ -61,11 +38,11 @@ export const BestOfHubPage: React.FC<BestOfHubPageProps> = ({ onNavigate }) => {
 
       <div className="max-w-3xl space-y-3">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-xs font-bold uppercase tracking-wider font-display">
-          <Sparkles className="w-4 h-4 text-amber-500" />
+          <Award className="w-3.5 h-3.5 text-[#0e6e6a]" />
           <span>Curated Pillar Roundups</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold font-display text-[#16201f]">
-          Best Field Service Software Roundups (2026)
+          Best Field Service Software Roundups
         </h1>
         <p className="text-sm md:text-base text-[#16201f]/75 font-body leading-relaxed">
           In-depth, ranked roundups curated for specific business segments. Wirecutter-style testing summaries with zero sponsored placement bias.
@@ -73,7 +50,7 @@ export const BestOfHubPage: React.FC<BestOfHubPageProps> = ({ onNavigate }) => {
 
         {/* FTC Disclosure */}
         <div className="pt-2">
-          <p className="text-[10px] text-[#16201f]/50 italic">
+          <p className="text-[10px] text-[#16201f]/70 italic">
             * We may earn a commission if you sign up for software through links on this page. Our research remains independent and evidence-based. <button onClick={() => onNavigate('/how-we-make-money')} className="underline hover:text-[#0e6e6a]">Learn more</button>.
           </p>
         </div>

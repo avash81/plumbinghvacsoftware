@@ -1,224 +1,289 @@
 /**
  * Footer.tsx
  * ---------------------------------------------------------
- * Global site footer.
- * Contains trust statements, secondary navigation, and legal links.
- *
- * Data source: lib/products.ts (for quick review links)
- * Related: App.tsx, Header.tsx
- *
- * Guide reference: project-implementation-guide.md, Section 3, 12
+ * Bespoke, clean footer tailored specifically for PHS (Plumbing HVAC Software).
+ * Follows the clean, spacious layout requested by the user while incorporating
+ * unique trade-specific resources and full Google AdSense policy compliance.
  * ---------------------------------------------------------
  */
 
-import React from 'react';
-import { Wrench, ShieldCheck, Mail, ArrowRight, ExternalLink } from 'lucide-react';
-import { PRODUCT_LIST } from '../lib/products';
-import { COMPARISON_LIST } from '../lib/comparisons';
+import React, { useState } from 'react';
+import { Send, CheckCircle2, Wrench, ShieldCheck } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (route: string) => void;
 }
 
-/**
- * Global footer with comprehensive sitemap and mandatory legal disclosures.
- */
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubscribed(true);
+      setEmail('');
+    }
+  };
+
   return (
-    <footer className="bg-[#16201f] text-neutral-300 pt-16 pb-12 border-t-4 border-[#0e6e6a] text-sm">
+    <footer className="bg-[#111514] text-neutral-300 pt-16 md:pt-20 pb-12 text-sm font-sans border-t border-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-800">
-          {/* Brand Col */}
-          <div className="lg:col-span-2 space-y-4">
+        {/* Main Grid: Newsletter & Brand (Left) + 3 Unique Resource Columns (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-neutral-800/80">
+          {/* Brand & Newsletter Column (Unique to PHS) */}
+          <div className="lg:col-span-5 space-y-5 pr-0 lg:pr-6">
+            {/* PHS Brand Identity Lockup */}
             <div
               onClick={() => onNavigate('/')}
-              className="flex items-center gap-2.5 cursor-pointer select-none"
+              className="inline-flex items-center gap-3 cursor-pointer select-none group"
             >
-              <div className="w-8 h-8 rounded-xs bg-[#0e6e6a] flex items-center justify-center text-white font-bold">
-                <Wrench className="w-4 h-4 stroke-[2.5]" />
+              <div className="w-9 h-9 rounded-sm bg-[#0e6e6a] flex items-center justify-center text-white shadow-xs group-hover:bg-[#0a4f4c] transition-colors">
+                <Wrench className="w-4 h-4 stroke-[2.4]" />
               </div>
-              <span className="text-xl font-black spec-font text-white tracking-tight">
-                PHS<span className="text-[#0e6e6a]">.</span>
-              </span>
+              <div>
+                <span className="text-xl font-black spec-font tracking-tight text-white block leading-none">
+                  PHS<span className="text-[#0e6e6a]">.</span>
+                </span>
+                <span className="text-[9px] font-bold tracking-widest uppercase text-neutral-400 block mt-1">
+                  PLUMBING & HVAC SOFTWARE
+                </span>
+              </div>
             </div>
 
-            <p className="text-xs text-neutral-400 leading-relaxed font-body max-w-sm">
-              Independent evaluation hub for plumbing and HVAC field service software. Built for US trade contractors and owner-operators.
-            </p>
-
-            <div className="p-3.5 bg-neutral-900 border border-neutral-800 rounded-xs text-xs text-neutral-300 space-y-2">
-              <div className="flex items-center gap-1.5 text-emerald-400 font-bold uppercase tracking-wider text-[11px] spec-font">
-                <ShieldCheck className="w-4 h-4" />
-                <span>Our Neutrality Guarantee</span>
-              </div>
-              <p className="text-[11px] text-neutral-400 leading-relaxed">
-                Vendors cannot pay for rankings. All products are evaluated using the same objective, hands-on criteria.
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Weekly Trade Operations Intel
+              </h3>
+              <p className="text-sm text-neutral-400 mt-2 leading-relaxed font-body">
+                Independent software audits, pricing benchmarks, and field dispatch playbooks delivered to US plumbing & HVAC contractors.
               </p>
             </div>
-          </div>
 
-          {/* Software Reviews Col */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-widest spec-font">
-              Software Reviews
-            </h4>
-            <ul className="space-y-2 text-xs text-neutral-400">
-              {PRODUCT_LIST.slice(0, 6).map((p) => (
-                <li key={p.slug}>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate(`/software-reviews/${p.slug}`)}
-                    className="hover:text-white transition-colors"
-                  >
-                    {p.name} Review
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <form onSubmit={handleSubscribe} className="pt-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 max-w-md">
+                <div className="relative flex-1">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your contractor email"
+                    required
+                    className="w-full px-4 py-3 bg-[#191f1d] border border-neutral-700/70 rounded-lg text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#0e6e6a] focus:ring-1 focus:ring-[#0e6e6a] transition-all"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-sm font-semibold rounded-lg transition-colors shadow-sm shrink-0"
+                >
+                  <span>Subscribe</span>
+                  <Send className="w-3.5 h-3.5 fill-current" />
+                </button>
+              </div>
 
-          {/* Head-to-Head Comparisons Col */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-widest spec-font">
-              Top Comparisons
-            </h4>
-            <ul className="space-y-2 text-xs text-neutral-400">
-              {COMPARISON_LIST.map((c) => (
-                <li key={c.slug}>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate(`/compare/${c.slug}`)}
-                    className="hover:text-white transition-colors text-left line-clamp-1"
-                  >
-                    {c.title.split(':')[0]}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+              {subscribed && (
+                <div className="mt-3 flex items-center gap-2 text-xs text-emerald-400 font-medium animate-fadeIn">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>Welcome! You're subscribed to our weekly trade software audits.</span>
+                </div>
+              )}
 
-          {/* Trust & Company Col */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-widest spec-font">
-              Trust & Transparency
-            </h4>
-            <ul className="space-y-2 text-xs text-neutral-400">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/how-we-test')}
-                  className="hover:text-white transition-colors"
-                >
-                  How We Test & Methodology
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/how-we-make-money')}
-                  className="hover:text-white transition-colors"
-                >
-                  How We Make Money (Affiliate Disclosure)
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/tools')}
-                  className="hover:text-white transition-colors"
-                >
-                  Software Finder Quiz
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/about')}
-                  className="hover:text-white transition-colors"
-                >
-                  About Our Team
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/contact')}
-                  className="hover:text-white transition-colors"
-                >
-                  Contact & Tip Submission
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Newsletter Col */}
-          <div className="lg:col-span-1 space-y-4">
-            <h4 className="text-xs font-bold text-white uppercase tracking-widest spec-font">
-              Weekly Operations Tips
-            </h4>
-            <p className="text-[11px] text-neutral-400 leading-relaxed">
-              Join 4,000+ trade owners receiving our weekly FSM pricing audits and operations playbooks.
-            </p>
-            <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Work Email"
-                className="w-full p-2.5 bg-neutral-900 border border-neutral-800 rounded-xs text-xs text-white focus:border-[#0e6e6a] focus:outline-none"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full py-2.5 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-xs font-bold uppercase tracking-wider rounded-xs transition-all"
-              >
-                Join Playbook
-              </button>
+              <p className="text-[11px] text-neutral-500 mt-2.5">
+                Zero vendor bias. No sponsored rankings. Unsubscribe anytime.
+              </p>
             </form>
+          </div>
+
+          {/* 3 Nav Columns: Software Research, Company & Trust, Legal (AdSense Core) */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 lg:gap-8">
+            {/* 1. Software Research (Unique to PHS) */}
+            <div className="space-y-4">
+              <h4 className="text-base font-bold text-white tracking-wide">
+                Software Research
+              </h4>
+              <ul className="space-y-3 text-sm text-neutral-400">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/software-reviews')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Software Reviews
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/compare')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Head-to-Head Compare
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/best-of')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Best Of Roundups
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/guides')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Operations Playbooks
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/tools')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Software Finder Quiz
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/tools')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    ROI & Cost Calculator
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* 2. Company & Trust (AdSense & EEAT Mandatory) */}
+            <div className="space-y-4">
+              <h4 className="text-base font-bold text-white tracking-wide">
+                Company & Trust
+              </h4>
+              <ul className="space-y-3 text-sm text-neutral-400">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/about')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Our Story & Mission
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/how-we-test')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Testing Methodology
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/how-we-test')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Editorial Standards
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/how-we-make-money')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    How We Make Money
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/contact')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Contact Editorial Team
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/contact')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Submit Tips & Feedback
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* 3. Legal & Compliance (AdSense Critical) */}
+            <div className="space-y-4">
+              <h4 className="text-base font-bold text-white tracking-wide">
+                Legal & Policy
+              </h4>
+              <ul className="space-y-3 text-sm text-neutral-400">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/privacy-policy')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Privacy Policy
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/terms-of-service')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Terms of Service
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/privacy-policy')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Cookie Policy
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/how-we-make-money')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Affiliate Disclosure
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('/how-we-test')}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Editorial Independence
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        {/* FTC Disclosure & Legal Bottom Bar */}
-        <div className="pt-8 space-y-4 text-xs text-neutral-500">
-          <p className="leading-relaxed">
-            <strong className="text-neutral-400">Disclosure:</strong> PHS is reader-supported. If you buy through our links, we may earn a commission. This never affects our reviews or the price you pay.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-neutral-800 text-[11px] mono-font">
-            <span>© 2026 PHS (Plumbing HVAC Software). All rights reserved.</span>
-            <div className="flex flex-wrap items-center gap-3 md:gap-4">
-              <span>Plumbing & HVAC FSM Resource Hub</span>
-              <span>•</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/how-we-make-money')}
-                className="text-neutral-400 hover:text-white"
-              >
-                Disclosures
-              </button>
-              <span>•</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/how-we-test')}
-                className="text-neutral-400 hover:text-white"
-              >
-                Editorial Standards
-              </button>
-              <span>•</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/privacy-policy')}
-                className="text-neutral-400 hover:text-white"
-              >
-                Privacy Policy
-              </button>
-              <span>•</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/terms-of-service')}
-                className="text-neutral-400 hover:text-white"
-              >
-                Terms of Service
-              </button>
-            </div>
+        {/* Bottom Bar: Clean Single Line with PHS Brand & Reader Notice */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+          <p>© {new Date().getFullYear()} PHS (Plumbing HVAC Software) — Independent Trade Research. All rights reserved.</p>
+          <div className="flex items-center gap-1.5 text-neutral-400 text-[11px]">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#0e6e6a]" />
+            <span>Independent & Evidence-Based</span>
           </div>
         </div>
       </div>

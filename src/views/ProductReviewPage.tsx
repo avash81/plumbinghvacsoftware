@@ -12,7 +12,7 @@
  */
 
 import React from 'react';
-import { ChevronRight, ShieldCheck, Check, X, Wrench, Flame, DollarSign, Scale, ExternalLink, ArrowRight, Sparkles } from 'lucide-react';
+import { ChevronRight, ShieldCheck, Check, X, Wrench, DollarSign, Scale, ExternalLink, ArrowRight, Award } from 'lucide-react';
 import { ProductData } from '../types';
 import { getAffiliateLink } from '../lib/affiliate-links';
 import { COMPARISON_LIST } from '../lib/comparisons';
@@ -22,8 +22,6 @@ import { ProsConsList } from '../components/ProsConsList';
 import { FAQAccordion } from '../components/FAQAccordion';
 import { AffiliateCTA } from '../components/AffiliateCTA';
 import { VerifiedDateBadge } from '../components/VerifiedDateBadge';
-import { SEOHead } from '../components/SEOHead';
-import { generateProductReviewSchema, generateBreadcrumbSchema } from '../lib/seo-schema';
 
 interface ProductReviewPageProps {
   product: ProductData;
@@ -44,13 +42,6 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
   const relatedComparisons = COMPARISON_LIST.filter(
     (c) => c.productA === product.slug || c.productB === product.slug
   );
-
-  const productSchema = generateProductReviewSchema(product);
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://plumbinghvacsoftware.com/' },
-    { name: 'Software Reviews', url: 'https://plumbinghvacsoftware.com/software-reviews/' },
-    { name: `${product.name} Review`, url: `https://plumbinghvacsoftware.com/software-reviews/${product.slug}/` },
-  ]);
 
   const productFaqs = [
     {
@@ -75,14 +66,6 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      <SEOHead
-        title={`${product.name} Review: 2026 Pricing, Pros & Cons, FSM Features`}
-        description={`In-depth hands-on review of ${product.name} for plumbing and HVAC businesses. Tested pricing starting at ${product.startingPrice}, mobile app reliability, and QuickBooks sync.`}
-        canonicalPath={`/software-reviews/${product.slug}`}
-        ogType="product"
-        schema={[productSchema, breadcrumbSchema]}
-      />
-
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/60 font-body">
         <button
@@ -121,7 +104,7 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
         </div>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#16201f] tracking-tight leading-tight">
-          {product.name} Review (2026): Pricing, Features & Verdict for Plumbing & HVAC
+          {product.name} Review: Pricing, Features & Verdict for Plumbing & HVAC
         </h1>
 
         {/* Author Byline */}
@@ -153,7 +136,7 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
       {/* Editorial Verdict / Summary Section */}
       <section className="bg-[#fbfaf8] border border-[#dde3e1] rounded-2xl p-6 md:p-8 space-y-4">
         <h2 className="text-2xl font-bold font-display text-[#16201f] flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-[#0e6e6a]" />
+          <ShieldCheck className="w-5 h-5 text-[#0e6e6a]" />
           <span>The Bottom Line Verdict</span>
         </h2>
         <p className="text-base text-[#16201f]/90 leading-relaxed font-body">
@@ -191,7 +174,7 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
         <section className="bg-emerald-50 border-y border-emerald-100 py-10 my-6">
           <div className="max-w-3xl mx-auto px-4 text-center space-y-4">
             <div className="inline-flex items-center gap-1.5 text-emerald-700 font-bold uppercase tracking-widest text-[10px] spec-font">
-              <Sparkles className="w-4 h-4" />
+              <Check className="w-4 h-4" />
               <span>What Real Owners Say</span>
             </div>
             <blockquote className="text-xl md:text-2xl font-display font-medium text-emerald-900 leading-relaxed italic">
@@ -229,9 +212,9 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
 
           {/* HVAC Card */}
           <div className="bg-white border border-[#dde3e1] rounded-xl p-6 shadow-xs">
-            <div className="flex items-center gap-2.5 mb-3 text-[#d97a3f]">
-              <div className="w-8 h-8 rounded-lg bg-[#d97a3f]/10 flex items-center justify-center">
-                <Flame className="w-4 h-4 text-[#d97a3f]" />
+            <div className="flex items-center gap-2.5 mb-3 text-[#0e6e6a]">
+              <div className="w-8 h-8 rounded-lg bg-[#0e6e6a]/10 flex items-center justify-center">
+                <Wrench className="w-4 h-4 text-[#0e6e6a]" />
               </div>
               <h3 className="text-lg font-bold font-display text-[#16201f]">
                 HVAC & Heating/Cooling Suitability
@@ -249,7 +232,7 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
             <h2 className="text-2xl font-bold font-display text-[#16201f]">
-              {product.name} Pricing Plans & Feature Breakdown (2026)
+              {product.name} Pricing Plans & Feature Breakdown
             </h2>
             <p className="text-xs md:text-sm text-[#16201f]/70 font-body">
               Verified directly with official rate cards. No concealed sales numbers.
@@ -393,8 +376,8 @@ export const ProductReviewPage: React.FC<ProductReviewPageProps> = ({
           onClick={() => onNavigate('/best-of')}
           className="text-xs font-bold text-[#0e6e6a] hover:text-[#0a4f4c] flex items-center gap-1.5 uppercase tracking-wider"
         >
-          <Sparkles className="w-4 h-4" />
-          <span>Back to Best of 2026 Roundups</span>
+          <Award className="w-4 h-4" />
+          <span>Back to Best Of Roundups</span>
         </button>
 
         <button

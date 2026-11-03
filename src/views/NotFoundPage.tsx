@@ -20,7 +20,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onNavigate }) => {
           Page Not Located in Work Order
         </h1>
         <p className="text-sm md:text-base text-[#16201f]/75 max-w-lg mx-auto font-body">
-          The requested page may have been relocated or updated during our latest 2026 software pricing audit. Explore our core comparison hubs below:
+          The requested page may have been relocated or updated during our latest software pricing audit. Explore our core comparison hubs below:
         </p>
       </div>
 
@@ -28,29 +28,29 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onNavigate }) => {
         <button
           type="button"
           onClick={() => onNavigate('/software-reviews')}
-          className="p-4 bg-white border border-[#dde3e1] hover:border-[#16201f] rounded-xs transition-all flex items-center gap-3 group text-left"
+          className="p-4 bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl transition-all flex items-center gap-3 group text-left hover:shadow-xs"
         >
-          <div className="w-8 h-8 rounded-xs bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
             <Layers className="w-4 h-4" />
           </div>
           <div>
-            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] spec-font">
+            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] font-display">
               Software Reviews Hub
             </div>
-            <div className="text-[11px] text-[#16201f]/60">All 8 evaluated platforms</div>
+            <div className="text-[11px] text-[#16201f]/60">Evaluated trade platforms</div>
           </div>
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('/compare')}
-          className="p-4 bg-white border border-[#dde3e1] hover:border-[#16201f] rounded-xs transition-all flex items-center gap-3 group text-left"
+          className="p-4 bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl transition-all flex items-center gap-3 group text-left hover:shadow-xs"
         >
-          <div className="w-8 h-8 rounded-xs bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
             <Scale className="w-4 h-4" />
           </div>
           <div>
-            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] spec-font">
+            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] font-display">
               Head-to-Head Comparisons
             </div>
             <div className="text-[11px] text-[#16201f]/60">Feature-by-feature showdowns</div>
@@ -60,14 +60,14 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onNavigate }) => {
         <button
           type="button"
           onClick={() => onNavigate('/best-of')}
-          className="p-4 bg-white border border-[#dde3e1] hover:border-[#16201f] rounded-xs transition-all flex items-center gap-3 group text-left"
+          className="p-4 bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl transition-all flex items-center gap-3 group text-left hover:shadow-xs"
         >
-          <div className="w-8 h-8 rounded-xs bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
             <BookOpen className="w-4 h-4" />
           </div>
           <div>
-            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] spec-font">
-              Best Of Roundups (2026)
+            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] font-display">
+              Best Of Roundups
             </div>
             <div className="text-[11px] text-[#16201f]/60">Ranked by shop size & trade</div>
           </div>
@@ -76,13 +76,13 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onNavigate }) => {
         <button
           type="button"
           onClick={() => onNavigate('/tools')}
-          className="p-4 bg-white border border-[#dde3e1] hover:border-[#16201f] rounded-xs transition-all flex items-center gap-3 group text-left"
+          className="p-4 bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl transition-all flex items-center gap-3 group text-left hover:shadow-xs"
         >
-          <div className="w-8 h-8 rounded-xs bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0">
             <Calculator className="w-4 h-4" />
           </div>
           <div>
-            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] spec-font">
+            <div className="font-bold text-xs text-[#16201f] group-hover:text-[#0e6e6a] font-display">
               Software Quiz & ROI Calc
             </div>
             <div className="text-[11px] text-[#16201f]/60">Find your best fit in 60s</div>
@@ -94,7 +94,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onNavigate }) => {
         <button
           type="button"
           onClick={() => onNavigate('/')}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-[#16201f] hover:bg-[#0e6e6a] text-white rounded-xs text-xs font-bold uppercase tracking-wider transition-all"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-all shadow-xs"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Homepage
         </button>

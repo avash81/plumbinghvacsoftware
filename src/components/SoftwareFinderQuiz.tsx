@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, ArrowRight, RotateCcw, CheckCircle2, ShieldCheck, Wrench, Users, DollarSign, Cpu } from 'lucide-react';
+import { Calculator, ArrowRight, RotateCcw, CheckCircle2, ShieldCheck, Wrench, Users, DollarSign, Cpu } from 'lucide-react';
 import { PRODUCTS, PRODUCT_LIST } from '../lib/products';
 import { AffiliateCTA } from './AffiliateCTA';
 import { ProductData } from '../types';
@@ -19,56 +19,20 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
   const [matchReason, setMatchReason] = useState<string>('');
 
   const calculateResult = () => {
-    let primary: ProductData = PRODUCTS['jobber'];
-    let secondary: ProductData = PRODUCTS['quoteiq'];
+    let primary: ProductData = PRODUCTS['test-1'];
+    let secondary: ProductData = PRODUCTS['test-2'];
     let reason = '';
 
     if (teamSize === 'solo' || teamSize === '1-2') {
-      if (budget === 'under50' || painPoint === 'quoting') {
-        primary = PRODUCTS['quoteiq'];
-        secondary = PRODUCTS['jobber'];
-        reason =
-          'For a solo or 1-2 person crew focused on fast quoting without heavy recurring overhead, QuoteIQ offers the highest ROI and lowest cost of entry.';
-      } else {
-        primary = PRODUCTS['jobber'];
-        secondary = PRODUCTS['quoteiq'];
-        reason =
-          'Jobber provides the best client portal experience and automated scheduling to help small shops look like enterprise operations.';
-      }
-    } else if (teamSize === '3-10') {
-      if (accounting === 'qbd') {
-        primary = PRODUCTS['fieldedge'];
-        secondary = PRODUCTS['housecall-pro'];
-        reason =
-          'Because your business relies on QuickBooks Desktop, FieldEdge delivers the most stable live desktop sync and equipment tracking.';
-      } else if (painPoint === 'marketing') {
-        primary = PRODUCTS['housecall-pro'];
-        secondary = PRODUCTS['jobber'];
-        reason =
-          'Housecall Pro’s automated direct-mail postcards and consumer financing on proposals will generate the fastest revenue bump for your residential team.';
-      } else if (budget === 'flat') {
-        primary = PRODUCTS['service-fusion'];
-        secondary = PRODUCTS['jobber'];
-        reason =
-          'Service Fusion’s unlimited user pricing prevents ballooning monthly software costs as your technician headcount scales.';
-      } else {
-        primary = PRODUCTS['jobber'];
-        secondary = PRODUCTS['housecall-pro'];
-        reason =
-          'Jobber is the industry standard for 3–10 truck operations, combining smooth dispatch, route optimization, and client self-service.';
-      }
-    } else if (teamSize === '15+') {
-      if (trade === 'commercial') {
-        primary = PRODUCTS['simpro'];
-        secondary = PRODUCTS['servicetitan'];
-        reason =
-          'Simpro excels in commercial project costing, retention billing, and heavy mechanical equipment management.';
-      } else {
-        primary = PRODUCTS['servicetitan'];
-        secondary = PRODUCTS['service-fusion'];
-        reason =
-          'For large residential fleets, ServiceTitan provides the deep multi-warehouse inventory, telematics, and call center metrics needed at scale.';
-      }
+      primary = PRODUCTS['test-1'];
+      secondary = PRODUCTS['test-2'];
+      reason =
+        'For solo owner-operators or 1–2 person trade crews seeking fast quoting and low overhead, Test Software 1 provides the highest ROI and easiest deployment.';
+    } else {
+      primary = PRODUCTS['test-2'];
+      secondary = PRODUCTS['test-1'];
+      reason =
+        'For multi-truck service teams needing fleet dispatch, equipment tracking, and commercial project costing, Test Software 2 provides robust operational depth.';
     }
 
     setTopMatch(primary);
@@ -96,7 +60,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
       <div className="flex items-center justify-between pb-6 border-b border-[#dde3e1]">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-[#0e6e6a]/10 flex items-center justify-center text-[#0e6e6a]">
-            <Sparkles className="w-5 h-5" />
+            <Calculator className="w-5 h-5" />
           </div>
           <div>
             <h2 className="text-xl md:text-2xl font-bold font-display text-[#16201f]">
@@ -337,7 +301,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
               onClick={calculateResult}
               className="px-6 py-2.5 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
             >
-              Calculate Best Matches <Sparkles className="w-4 h-4" />
+              Calculate Best Matches <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>

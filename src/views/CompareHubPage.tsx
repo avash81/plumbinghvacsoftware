@@ -12,54 +12,31 @@
  */
 
 import React, { useState } from 'react';
-import { Scale, ArrowRight, Sparkles, Check, ArrowRightLeft, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Scale, ArrowRight, Check, ArrowRightLeft, ShieldCheck, ChevronRight } from 'lucide-react';
 import { COMPARISON_LIST, getComparisonBySlug } from '../lib/comparisons';
 import { PRODUCTS, PRODUCT_LIST } from '../lib/products';
 import { ComparisonTable } from '../components/ComparisonTable';
-import { SEOHead } from '../components/SEOHead';
-import { generateBreadcrumbSchema, generateCollectionSchema } from '../lib/seo-schema';
 
 interface CompareHubPageProps {
   onNavigate: (route: string) => void;
 }
 
 export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) => {
-  const [selectedProductA, setSelectedProductA] = useState('quoteiq');
-  const [selectedProductB, setSelectedProductB] = useState('jobber');
+  const [selectedProductA, setSelectedProductA] = useState('test-1');
+  const [selectedProductB, setSelectedProductB] = useState('test-2');
 
-  const pA = PRODUCTS[selectedProductA] || PRODUCTS['quoteiq'];
-  const pB = PRODUCTS[selectedProductB] || PRODUCTS['jobber'];
+  const pA = PRODUCTS[selectedProductA] || PRODUCTS['test-1'];
+  const pB = PRODUCTS[selectedProductB] || PRODUCTS['test-2'];
 
   // Check if there is a pre-written dedicated comparison
   const directSlug1 = `${selectedProductA}-vs-${selectedProductB}`;
   const directSlug2 = `${selectedProductB}-vs-${selectedProductA}`;
   const dedicatedComparison = getComparisonBySlug(directSlug1) || getComparisonBySlug(directSlug2);
 
-  const breadcrumbs = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://plumbinghvacsoftware.com/' },
-    { name: 'Compare', url: 'https://plumbinghvacsoftware.com/compare/' },
-  ]);
-
-  const collectionSchema = generateCollectionSchema(
-    'Head-to-Head Field Service Software Comparisons (2026)',
-    'Side-by-side technical, feature, and pricing comparisons for plumbing and HVAC contractors.',
-    'https://plumbinghvacsoftware.com/compare/',
-    COMPARISON_LIST.map((c) => ({
-      name: c.title,
-      url: `https://plumbinghvacsoftware.com/compare/${c.slug}`,
-    }))
-  );
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
-      <SEOHead
-        title="Compare Field Service Software: Head-to-Head 2026 Matchups"
-        description="Side-by-side field service software comparisons for plumbing and HVAC. Compare QuoteIQ vs Jobber, Housecall Pro, ServiceTitan, and FieldEdge."
-        canonicalPath="/compare"
-        schema={[breadcrumbs, collectionSchema]}
-      />
       {/* Breadcrumb Navigation */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/60 font-body mb-4">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/75 font-body mb-4">
         <button
           type="button"
           onClick={() => onNavigate('/')}
@@ -78,7 +55,7 @@ export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) =>
           <span>Head-to-Head Comparison Hub</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold font-display text-[#16201f]">
-          Compare Field Service Software (2026)
+          Compare Field Service Software
         </h1>
         <p className="text-sm md:text-base text-[#16201f]/75 font-body leading-relaxed">
           Side-by-side technical and financial breakdowns. Select any two platforms to compare features, pricing models, mobile offline performance, and real trade advantages.
@@ -86,7 +63,7 @@ export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) =>
 
         {/* FTC Disclosure */}
         <div className="pt-2">
-          <p className="text-[10px] text-[#16201f]/50 italic">
+          <p className="text-[10px] text-[#16201f]/70 italic">
             * We may earn a commission if you sign up for software through links on this page. Our research remains independent and evidence-based. <button onClick={() => onNavigate('/how-we-make-money')} className="underline hover:text-[#0e6e6a]">Learn more</button>.
           </p>
         </div>
@@ -104,7 +81,7 @@ export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) =>
         <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
           {/* Product A Selector */}
           <div className="md:col-span-5 space-y-2">
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#16201f]/60 font-display">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#16201f]/75 font-display">
               Software A:
             </label>
             <select
@@ -120,16 +97,25 @@ export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) =>
             </select>
           </div>
 
-          {/* VS Divider */}
+          {/* VS Divider with Swap */}
           <div className="md:col-span-1 flex justify-center text-center">
-            <div className="w-10 h-10 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] font-bold text-xs flex items-center justify-center font-display">
+            <button
+              type="button"
+              onClick={() => {
+                const temp = selectedProductA;
+                setSelectedProductA(selectedProductB);
+                setSelectedProductB(temp);
+              }}
+              className="w-10 h-10 rounded-full bg-[#0e6e6a]/10 hover:bg-[#0e6e6a] text-[#0e6e6a] hover:text-white font-bold text-xs flex items-center justify-center font-display transition-colors shadow-2xs"
+              title="Click to swap software"
+            >
               VS
-            </div>
+            </button>
           </div>
 
           {/* Product B Selector */}
           <div className="md:col-span-5 space-y-2">
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#16201f]/60 font-display">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#16201f]/75 font-display">
               Software B:
             </label>
             <select

@@ -12,15 +12,13 @@
  */
 
 import React from 'react';
-import { ChevronRight, Scale, Award, CheckCircle2, DollarSign, Wrench, Flame, ArrowRight, Sparkles } from 'lucide-react';
+import { ChevronRight, Scale, Award, CheckCircle2, DollarSign, Wrench, ArrowRight } from 'lucide-react';
 import { ComparisonPair } from '../types';
 import { PRODUCTS } from '../lib/products';
 import { ComparisonTable } from '../components/ComparisonTable';
 import { FAQAccordion } from '../components/FAQAccordion';
 import { AffiliateCTA } from '../components/AffiliateCTA';
 import { VerifiedDateBadge } from '../components/VerifiedDateBadge';
-import { SEOHead } from '../components/SEOHead';
-import { generateBreadcrumbSchema, generateComparisonSchema } from '../lib/seo-schema';
 
 interface ComparisonDetailPageProps {
   comparison: ComparisonPair;
@@ -49,22 +47,8 @@ export const ComparisonDetailPage: React.FC<ComparisonDetailPageProps> = ({
     );
   }
 
-  const comparisonSchema = generateComparisonSchema(comparison);
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://plumbinghvacsoftware.com/' },
-    { name: 'Compare', url: 'https://plumbinghvacsoftware.com/compare/' },
-    { name: comparison.title.split(':')[0], url: `https://plumbinghvacsoftware.com/compare/${comparison.slug}/` },
-  ]);
-
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      <SEOHead
-        title={`${comparison.title} | 2026 Head-to-Head Comparison`}
-        description={comparison.subtitle}
-        canonicalPath={`/compare/${comparison.slug}`}
-        ogType="article"
-        schema={[comparisonSchema, breadcrumbSchema]}
-      />
 
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/60 font-body">

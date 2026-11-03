@@ -23,9 +23,9 @@ export const AuthorDetailPage: React.FC<AuthorDetailPageProps> = ({ author, onNa
       </button>
 
       {/* Author Bio Header Card */}
-      <div className="bg-white border-2 border-[#16201f] rounded-xs p-6 md:p-8 shadow-xs space-y-6">
+      <div className="bg-white border border-[#dde3e1] rounded-2xl p-6 md:p-8 shadow-xs space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xs bg-[#0e6e6a] text-white flex items-center justify-center text-2xl font-black spec-font shrink-0">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#0e6e6a] text-white flex items-center justify-center text-2xl font-black font-display shrink-0">
             {author.name.split(' ').map((n) => n[0]).join('')}
           </div>
           <div>
@@ -108,31 +108,37 @@ export const AuthorDetailPage: React.FC<AuthorDetailPageProps> = ({ author, onNa
           <span>Articles & Evaluations by {author.name}</span>
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {GUIDE_LIST.map((guide) => (
-            <div
-              key={guide.slug}
-              onClick={() => onNavigate(`/guides/${guide.category}/${guide.slug}`)}
-              className="p-5 bg-white border border-[#dde3e1] hover:border-[#16201f] rounded-xs cursor-pointer transition-all hover:shadow-xs group flex flex-col justify-between"
-            >
-              <div>
-                <span className="badge-ink text-[10px] mb-2 inline-block">
-                  {guide.categoryLabel}
-                </span>
-                <h3 className="font-bold text-sm text-[#16201f] group-hover:text-[#0e6e6a] transition-colors leading-snug">
-                  {guide.title}
-                </h3>
-                <p className="text-xs text-[#16201f]/70 mt-1.5 line-clamp-2">
-                  {guide.intro}
-                </p>
+        {GUIDE_LIST.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {GUIDE_LIST.map((guide) => (
+              <div
+                key={guide.slug}
+                onClick={() => onNavigate(`/guides/${guide.category}/${guide.slug}`)}
+                className="p-5 bg-white border border-[#dde3e1] hover:border-[#16201f] rounded-xs cursor-pointer transition-all hover:shadow-xs group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="badge-ink text-[10px] mb-2 inline-block">
+                    {guide.categoryLabel}
+                  </span>
+                  <h3 className="font-bold text-sm text-[#16201f] group-hover:text-[#0e6e6a] transition-colors leading-snug">
+                    {guide.title}
+                  </h3>
+                  <p className="text-xs text-[#16201f]/70 mt-1.5 line-clamp-2">
+                    {guide.intro}
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-[#dde3e1] flex items-center justify-between text-[11px] text-[#0e6e6a] font-bold">
+                  <span>Read Full Article</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-all" />
+                </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#dde3e1] flex items-center justify-between text-[11px] text-[#0e6e6a] font-bold">
-                <span>Read Full Article</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-all" />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="p-6 bg-white border border-[#dde3e1] rounded-xs text-[#16201f]/70 font-body text-xs md:text-sm">
+            Articles and operational playbooks authored by {author.name} are currently being updated as part of our editorial overhaul and will be published here soon.
+          </div>
+        )}
       </div>
     </div>
   );

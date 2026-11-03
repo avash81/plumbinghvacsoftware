@@ -12,15 +12,13 @@
  */
 
 import React from 'react';
-import { ChevronRight, Sparkles, Award, ShieldCheck, Check, ArrowRight, BookOpen, AlertCircle } from 'lucide-react';
+import { ChevronRight, Award, ShieldCheck, Check, ArrowRight, BookOpen, AlertCircle } from 'lucide-react';
 import { BestOfArticle } from '../types';
-import { PRODUCTS, PRODUCT_LIST } from '../lib/products';
+import { PRODUCTS } from '../lib/products';
 import { ComparisonTable } from '../components/ComparisonTable';
 import { FAQAccordion } from '../components/FAQAccordion';
 import { AffiliateCTA } from '../components/AffiliateCTA';
 import { VerifiedDateBadge } from '../components/VerifiedDateBadge';
-import { SEOHead } from '../components/SEOHead';
-import { generateBreadcrumbSchema, generateBestOfPillarSchema } from '../lib/seo-schema';
 
 interface BestOfArticlePageProps {
   article: BestOfArticle;
@@ -31,27 +29,12 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
   article,
   onNavigate,
 }) => {
-  const pillarSchema = generateBestOfPillarSchema(article);
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://plumbinghvacsoftware.com/' },
-    { name: 'Best Of', url: 'https://plumbinghvacsoftware.com/best-of/' },
-    { name: article.title, url: `https://plumbinghvacsoftware.com/best-of/${article.slug}/` },
-  ]);
-
   const featuredProducts = article.topPicks
     .map((p) => PRODUCTS[p.productSlug])
     .filter(Boolean);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      <SEOHead
-        title={`${article.title} | 2026 Rankings & Review`}
-        description={article.subtitle}
-        canonicalPath={`/best-of/${article.slug}`}
-        ogType="article"
-        schema={[pillarSchema, breadcrumbSchema]}
-      />
-
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/60 font-body">
         <button

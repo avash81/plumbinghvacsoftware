@@ -35,7 +35,7 @@ export const PrivacyPolicyPage: React.FC<{ onNavigate: (route: string) => void }
         </p>
       </div>
 
-      <div className="bg-white border border-[#dde3e1] rounded-sm p-6 md:p-8 space-y-6 text-sm text-[#16201f]/85 font-body leading-relaxed shadow-xs">
+      <div className="bg-white border border-[#dde3e1] rounded-2xl p-6 md:p-8 space-y-6 text-sm text-[#16201f]/85 font-body leading-relaxed shadow-xs">
         <section className="space-y-3">
           <h2 className="text-xl font-bold spec-font text-[#16201f]">1. Information We Collect</h2>
           <p>
@@ -104,7 +104,7 @@ export const TermsOfServicePage: React.FC<{ onNavigate: (route: string) => void 
         </p>
       </div>
 
-      <div className="bg-white border border-[#dde3e1] rounded-sm p-6 md:p-8 space-y-6 text-sm text-[#16201f]/85 font-body leading-relaxed shadow-xs">
+      <div className="bg-white border border-[#dde3e1] rounded-2xl p-6 md:p-8 space-y-6 text-sm text-[#16201f]/85 font-body leading-relaxed shadow-xs">
         <section className="space-y-3">
           <h2 className="text-xl font-bold spec-font text-[#16201f]">1. Educational and Informational Purpose Only</h2>
           <p>

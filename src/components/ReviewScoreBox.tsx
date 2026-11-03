@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Check, Award, Tag, Sparkles } from 'lucide-react';
+import { Star, Check, Award, Tag } from 'lucide-react';
 import { ProductData } from '../types';
 import { AffiliateCTA } from './AffiliateCTA';
 import { VerifiedDateBadge } from './VerifiedDateBadge';
@@ -27,7 +27,7 @@ export const ReviewScoreBox: React.FC<ReviewScoreBoxProps> = ({
   return (
     <div
       id={`review-score-box-${product.slug}`}
-      className={`bg-white border border-[#dde3e1] rounded-sm p-6 md:p-8 shadow-xs ${className}`}
+      className={`bg-white border border-[#dde3e1] rounded-2xl p-6 md:p-8 shadow-xs ${className}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b-2 border-[#16201f]">
         <div>
@@ -48,8 +48,8 @@ export const ReviewScoreBox: React.FC<ReviewScoreBoxProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-6">
         {/* Left Column: Big Score & "Best For" summary */}
         <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
-          <div className="bg-[#fbfaf8] border border-[#dde3e1] rounded-sm p-6 text-center">
-            <span className="text-[11px] font-bold tracking-widest text-[#16201f]/60 uppercase spec-font">
+          <div className="bg-[#fbfaf8] border border-[#dde3e1] rounded-xl p-6 text-center">
+            <span className="text-[11px] font-bold tracking-widest text-[#16201f]/75 uppercase spec-font">
               Overall Editorial Rating
             </span>
             <div className="flex items-center justify-center gap-2 my-2">
@@ -69,7 +69,7 @@ export const ReviewScoreBox: React.FC<ReviewScoreBoxProps> = ({
                     />
                   ))}
                 </div>
-                <span className="text-xs text-[#16201f]/50 mono-font">out of 5.0</span>
+                <span className="text-xs text-[#16201f]/70 mono-font">out of 5.0</span>
               </div>
             </div>
 
@@ -86,7 +86,7 @@ export const ReviewScoreBox: React.FC<ReviewScoreBoxProps> = ({
 
           {/* Pricing & Free Trial Callout */}
           <div className="space-y-2.5">
-            <div className="flex items-center justify-between text-sm py-2.5 px-3 bg-[#fbfaf8] rounded-xs border border-[#dde3e1]">
+            <div className="flex items-center justify-between text-sm py-2.5 px-3 bg-[#fbfaf8] rounded-lg border border-[#dde3e1]">
               <span className="text-[11px] uppercase tracking-wider text-[#16201f]/70 font-bold flex items-center gap-1.5 spec-font">
                 <Tag className="w-4 h-4 text-[#0e6e6a]" /> Starting Price:
               </span>
@@ -95,7 +95,7 @@ export const ReviewScoreBox: React.FC<ReviewScoreBoxProps> = ({
               </span>
             </div>
 
-            <div className="flex items-center justify-between text-sm py-2.5 px-3 bg-[#fbfaf8] rounded-xs border border-[#dde3e1]">
+            <div className="flex items-center justify-between text-sm py-2.5 px-3 bg-[#fbfaf8] rounded-lg border border-[#dde3e1]">
               <span className="text-[11px] uppercase tracking-wider text-[#16201f]/70 font-bold spec-font">Free Trial:</span>
               <span className="font-bold text-emerald-800 text-xs uppercase tracking-wider spec-font">
                 {product.hasFreeTrial ? `${product.freeTrialDays} Days (No CC Required)` : 'Demo Required'}
@@ -140,7 +140,7 @@ export const ReviewScoreBox: React.FC<ReviewScoreBoxProps> = ({
             );
           })}
 
-          <div className="mt-4 pt-3 text-[11px] text-[#16201f]/60 italic">
+          <div className="mt-4 pt-3 text-[11px] text-[#16201f]/75 italic">
             * Scored according to our standardized 5-point evaluation framework across 25 hands-on criteria.
           </div>
         </div>

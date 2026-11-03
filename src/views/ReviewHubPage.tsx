@@ -12,11 +12,9 @@
  */
 
 import React, { useState } from 'react';
-import { Search, Filter, Star, Sparkles, Layers, SlidersHorizontal, ChevronRight } from 'lucide-react';
+import { Search, Filter, Star, Layers, SlidersHorizontal, ChevronRight } from 'lucide-react';
 import { PRODUCT_LIST } from '../lib/products';
 import { ProductCard } from '../components/ProductCard';
-import { SEOHead } from '../components/SEOHead';
-import { generateBreadcrumbSchema, generateCollectionSchema } from '../lib/seo-schema';
 
 interface ReviewHubPageProps {
   onNavigate: (route: string) => void;
@@ -33,21 +31,6 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
   const [tradeFilter, setTradeFilter] = useState('all');
   const [sortBy, setSortBy] = useState<'rating' | 'price' | 'name'>('rating');
 
-  const breadcrumbs = generateBreadcrumbSchema([
-    { name: 'Home', url: 'https://plumbinghvacsoftware.com/' },
-    { name: 'Software Reviews', url: 'https://plumbinghvacsoftware.com/software-reviews/' },
-  ]);
-
-  const collectionSchema = generateCollectionSchema(
-    'Plumbing & HVAC Field Service Software Reviews (2026)',
-    'Independent hands-on reviews, pricing breakdowns, and feature ratings for top trade contractor software.',
-    'https://plumbinghvacsoftware.com/software-reviews/',
-    PRODUCT_LIST.map((p) => ({
-      name: `${p.name} Review`,
-      url: `https://plumbinghvacsoftware.com/software-reviews/${p.slug}`,
-    }))
-  );
-
   const filteredProducts = PRODUCT_LIST.filter((p) => {
     // Search match
     const matchesSearch =
@@ -57,19 +40,19 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
 
     // Size filter match
     let matchesSize = true;
-    if (sizeFilter === 'solo') matchesSize = p.targetTeamSize.includes('1') || p.slug === 'quoteiq';
-    if (sizeFilter === 'small') matchesSize = p.targetTeamSize.includes('2') || p.targetTeamSize.includes('5');
-    if (sizeFilter === 'large') matchesSize = p.targetTeamSize.includes('15') || p.slug === 'servicetitan' || p.slug === 'simpro';
+    if (sizeFilter === 'solo') matchesSize = p.targetTeamSize.includes('1') || p.slug === 'test-1';
+    if (sizeFilter === 'small') matchesSize = p.targetTeamSize.includes('5') || p.slug === 'test-1';
+    if (sizeFilter === 'large') matchesSize = p.targetTeamSize.includes('25') || p.slug === 'test-2';
 
     // Pricing filter
     let matchesPricing = true;
-    if (pricingFilter === 'flat') matchesPricing = p.slug === 'service-fusion' || p.slug === 'quoteiq';
-    if (pricingFilter === 'under100') matchesPricing = p.startingPrice.includes('29') || p.startingPrice.includes('49') || p.startingPrice.includes('65') || p.startingPrice.includes('99');
+    if (pricingFilter === 'flat') matchesPricing = p.priceModel.toLowerCase().includes('flat') || p.slug === 'test-2';
+    if (pricingFilter === 'under100') matchesPricing = p.startingPrice.includes('49') || p.startingPrice.includes('99');
 
     // Trade filter
     let matchesTrade = true;
-    if (tradeFilter === 'plumbing') matchesTrade = p.plumbingSuitability.toLowerCase().includes('high') || p.plumbingSuitability.toLowerCase().includes('superb');
-    if (tradeFilter === 'hvac') matchesTrade = p.hvacSuitability.toLowerCase().includes('high') || p.hvacSuitability.toLowerCase().includes('superb') || p.hvacSuitability.toLowerCase().includes('excellent');
+    if (tradeFilter === 'plumbing') matchesTrade = p.plumbingSuitability.toLowerCase().includes('plumbing') || p.trades.includes('plumbing') || p.trades.includes('both');
+    if (tradeFilter === 'hvac') matchesTrade = p.hvacSuitability.toLowerCase().includes('hvac') || p.trades.includes('hvac') || p.trades.includes('both');
 
     return matchesSearch && matchesSize && matchesPricing && matchesTrade;
   }).sort((a, b) => {
@@ -80,14 +63,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      <SEOHead
-        title="Field Service Software Reviews (2026 Plumbing & HVAC)"
-        description="Comprehensive, hands-on reviews of QuoteIQ, Jobber, Housecall Pro, ServiceTitan, and top field service platforms for trade contractors."
-        canonicalPath="/software-reviews"
-        schema={[breadcrumbs, collectionSchema]}
-      />
       {/* Breadcrumb Navigation */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/60 font-body mb-4">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/75 font-body mb-4">
         <button
           type="button"
           onClick={() => onNavigate('/')}
@@ -106,7 +83,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
           <span>FSM Software Reviews Hub</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold font-display text-[#16201f]">
-          Field Service Software Reviews (2026)
+          Field Service Software Reviews
         </h1>
         <p className="text-sm md:text-base text-[#16201f]/75 font-body leading-relaxed">
           Independent evaluations of top field service platforms. We rank tools based on scheduling, mobile apps, pricing, and QuickBooks sync.
@@ -114,7 +91,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
 
         {/* FTC Disclosure */}
         <div className="pt-2">
-          <p className="text-[10px] text-[#16201f]/50 italic">
+          <p className="text-[10px] text-[#16201f]/70 italic">
             * We may earn a commission if you sign up for software through links on this page. Our research remains independent and evidence-based. <button onClick={() => onNavigate('/how-we-make-money')} className="underline hover:text-[#0e6e6a]">Learn more</button>.
           </p>
         </div>
@@ -122,6 +99,97 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
 
       {/* Search & Filter Bar */}
       <div className="bg-white border border-[#dde3e1] rounded-2xl p-4 md:p-6 shadow-xs space-y-4">
+        {/* Quick Trade Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#dde3e1]/60">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#16201f]/60 font-display mr-1">
+            Quick Filters:
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setTradeFilter('all');
+              setSizeFilter('all');
+              setPricingFilter('all');
+            }}
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+              tradeFilter === 'all' && sizeFilter === 'all' && pricingFilter === 'all'
+                ? 'bg-[#0e6e6a] text-white'
+                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+            }`}
+          >
+            All Platforms
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setTradeFilter('plumbing');
+              setSizeFilter('all');
+            }}
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+              tradeFilter === 'plumbing'
+                ? 'bg-[#0e6e6a] text-white'
+                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+            }`}
+          >
+            Plumbing Focus
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setTradeFilter('hvac');
+              setSizeFilter('all');
+            }}
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+              tradeFilter === 'hvac'
+                ? 'bg-[#0e6e6a] text-white'
+                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+            }`}
+          >
+            HVAC Focus
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setSizeFilter('solo');
+              setTradeFilter('all');
+            }}
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+              sizeFilter === 'solo'
+                ? 'bg-[#0e6e6a] text-white'
+                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+            }`}
+          >
+            1–5 Techs (Residential)
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setSizeFilter('large');
+              setTradeFilter('all');
+            }}
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+              sizeFilter === 'large'
+                ? 'bg-[#0e6e6a] text-white'
+                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+            }`}
+          >
+            15+ Fleets (Commercial)
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setPricingFilter('under100');
+            }}
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+              pricingFilter === 'under100'
+                ? 'bg-[#0e6e6a] text-white'
+                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+            }`}
+          >
+            Under $100/mo
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search Box */}
           <div className="relative lg:col-span-1">
@@ -189,7 +257,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Results Counter */}
-        <div className="flex justify-between items-center text-xs text-[#16201f]/60 pt-2 border-t border-[#dde3e1]/60">
+        <div className="flex justify-between items-center text-xs text-[#16201f]/75 pt-2 border-t border-[#dde3e1]/60">
           <span>
             Showing <strong>{filteredProducts.length}</strong> of {PRODUCT_LIST.length} software platforms
           </span>

@@ -2,5 +2,5 @@
   "name": "PHS",
   "description": "PHS (Plumbing HVAC Software) — Independent field service management software comparisons, reviews, and research for USA plumbing and HVAC contractors.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

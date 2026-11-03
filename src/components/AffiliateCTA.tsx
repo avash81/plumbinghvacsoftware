@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, ShieldAlert, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, ShieldAlert, CheckCircle2 } from 'lucide-react';
 import { getAffiliateLink } from '../lib/affiliate-links';
 
 interface AffiliateCTAProps {
