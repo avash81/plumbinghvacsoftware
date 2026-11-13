@@ -64,44 +64,44 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Breadcrumb Navigation */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/75 font-body mb-4">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#17242C]/75 font-body mb-4">
         <button
           type="button"
           onClick={() => onNavigate('/')}
-          className="hover:text-[#0e6e6a]"
+          className="hover:text-[#0F4C6E]"
         >
           Home
         </button>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-[#16201f] font-semibold">Software Reviews</span>
+        <span className="text-[#17242C] font-semibold">Software Reviews</span>
       </nav>
 
       {/* Header */}
-      <div className="max-w-3xl space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-xs font-bold uppercase tracking-wider font-display">
+      <div className="page-intro max-w-3xl space-y-3">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0F4C6E]/10 text-[#0F4C6E] text-xs font-bold uppercase tracking-wider font-display">
           <Layers className="w-4 h-4" />
           <span>FSM Software Reviews Hub</span>
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold font-display text-[#16201f]">
+        <h1 className="text-3xl md:text-4xl font-extrabold font-display text-[#17242C]">
           Field Service Software Reviews
         </h1>
-        <p className="text-sm md:text-base text-[#16201f]/75 font-body leading-relaxed">
+        <p className="text-sm md:text-base text-[#17242C]/75 font-body leading-relaxed">
           Independent evaluations of top field service platforms. We rank tools based on scheduling, mobile apps, pricing, and QuickBooks sync.
         </p>
 
         {/* FTC Disclosure */}
         <div className="pt-2">
-          <p className="text-[10px] text-[#16201f]/70 italic">
-            * We may earn a commission if you sign up for software through links on this page. Our research remains independent and evidence-based. <button onClick={() => onNavigate('/how-we-make-money')} className="underline hover:text-[#0e6e6a]">Learn more</button>.
+          <p className="text-xs leading-5 text-[#17242C]/75">
+            * We may earn a commission if you sign up for software through links on this page. Our research remains independent and evidence-based. <button onClick={() => onNavigate('/how-we-make-money')} className="underline hover:text-[#0F4C6E]">Learn more</button>.
           </p>
         </div>
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="bg-white border border-[#dde3e1] rounded-2xl p-4 md:p-6 shadow-xs space-y-4">
+      <div className="bg-white border border-[#D3DDE3] rounded-2xl p-4 md:p-6 shadow-xs space-y-4">
         {/* Quick Trade Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#dde3e1]/60">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#16201f]/60 font-display mr-1">
+        <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#D3DDE3]/60">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#17242C]/60 font-display mr-1">
             Quick Filters:
           </span>
           <button
@@ -113,8 +113,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             }}
             className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
               tradeFilter === 'all' && sizeFilter === 'all' && pricingFilter === 'all'
-                ? 'bg-[#0e6e6a] text-white'
-                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+                ? 'bg-[#0F4C6E] text-white'
+                : 'bg-[#F3F6F8] border border-[#D3DDE3] text-[#17242C]/80 hover:text-[#0F4C6E]'
             }`}
           >
             All Platforms
@@ -127,8 +127,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             }}
             className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
               tradeFilter === 'plumbing'
-                ? 'bg-[#0e6e6a] text-white'
-                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+                ? 'bg-[#0F4C6E] text-white'
+                : 'bg-[#F3F6F8] border border-[#D3DDE3] text-[#17242C]/80 hover:text-[#0F4C6E]'
             }`}
           >
             Plumbing Focus
@@ -141,8 +141,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             }}
             className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
               tradeFilter === 'hvac'
-                ? 'bg-[#0e6e6a] text-white'
-                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+                ? 'bg-[#0F4C6E] text-white'
+                : 'bg-[#F3F6F8] border border-[#D3DDE3] text-[#17242C]/80 hover:text-[#0F4C6E]'
             }`}
           >
             HVAC Focus
@@ -155,8 +155,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             }}
             className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
               sizeFilter === 'solo'
-                ? 'bg-[#0e6e6a] text-white'
-                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+                ? 'bg-[#0F4C6E] text-white'
+                : 'bg-[#F3F6F8] border border-[#D3DDE3] text-[#17242C]/80 hover:text-[#0F4C6E]'
             }`}
           >
             1–5 Techs (Residential)
@@ -169,8 +169,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             }}
             className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
               sizeFilter === 'large'
-                ? 'bg-[#0e6e6a] text-white'
-                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+                ? 'bg-[#0F4C6E] text-white'
+                : 'bg-[#F3F6F8] border border-[#D3DDE3] text-[#17242C]/80 hover:text-[#0F4C6E]'
             }`}
           >
             15+ Fleets (Commercial)
@@ -182,8 +182,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             }}
             className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
               pricingFilter === 'under100'
-                ? 'bg-[#0e6e6a] text-white'
-                : 'bg-[#fbfaf8] border border-[#dde3e1] text-[#16201f]/80 hover:text-[#0e6e6a]'
+                ? 'bg-[#0F4C6E] text-white'
+                : 'bg-[#F3F6F8] border border-[#D3DDE3] text-[#17242C]/80 hover:text-[#0F4C6E]'
             }`}
           >
             Under $100/mo
@@ -199,7 +199,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-[#fbfaf8] border border-[#dde3e1] rounded-lg text-sm focus:ring-2 focus:ring-[#0e6e6a] focus:outline-none"
+              className="w-full pl-10 pr-4 py-2 bg-[#F3F6F8] border border-[#D3DDE3] rounded-lg text-sm focus:ring-2 focus:ring-[#0F4C6E] focus:outline-none"
             />
           </div>
 
@@ -208,7 +208,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             <select
               value={tradeFilter}
               onChange={(e) => setTradeFilter(e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#fbfaf8] border border-[#dde3e1] rounded-lg text-sm text-[#16201f] focus:ring-2 focus:ring-[#0e6e6a]"
+              className="w-full px-3.5 py-2 bg-[#F3F6F8] border border-[#D3DDE3] rounded-lg text-sm text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
             >
               <option value="all">All Trades</option>
               <option value="plumbing">Plumbing Focus</option>
@@ -221,7 +221,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             <select
               value={sizeFilter}
               onChange={(e) => setSizeFilter(e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#fbfaf8] border border-[#dde3e1] rounded-lg text-sm text-[#16201f] focus:ring-2 focus:ring-[#0e6e6a]"
+              className="w-full px-3.5 py-2 bg-[#F3F6F8] border border-[#D3DDE3] rounded-lg text-sm text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
             >
               <option value="all">All Team Sizes</option>
               <option value="solo">Solo & 1–2 Techs</option>
@@ -235,7 +235,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             <select
               value={pricingFilter}
               onChange={(e) => setPricingFilter(e.target.value)}
-              className="w-full px-3.5 py-2 bg-[#fbfaf8] border border-[#dde3e1] rounded-lg text-sm text-[#16201f] focus:ring-2 focus:ring-[#0e6e6a]"
+              className="w-full px-3.5 py-2 bg-[#F3F6F8] border border-[#D3DDE3] rounded-lg text-sm text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
             >
               <option value="all">All Pricing</option>
               <option value="under100">Under $100/mo</option>
@@ -248,7 +248,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="w-full px-3.5 py-2 bg-[#fbfaf8] border border-[#dde3e1] rounded-lg text-sm text-[#16201f] focus:ring-2 focus:ring-[#0e6e6a]"
+              className="w-full px-3.5 py-2 bg-[#F3F6F8] border border-[#D3DDE3] rounded-lg text-sm text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
             >
               <option value="rating">Sort: Rated</option>
               <option value="name">Sort: A-Z</option>
@@ -257,7 +257,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Results Counter */}
-        <div className="flex justify-between items-center text-xs text-[#16201f]/75 pt-2 border-t border-[#dde3e1]/60">
+        <div className="flex justify-between items-center text-xs text-[#17242C]/75 pt-2 border-t border-[#D3DDE3]/60">
           <span>
             Showing <strong>{filteredProducts.length}</strong> of {PRODUCT_LIST.length} software platforms
           </span>
@@ -270,7 +270,7 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
                 setPricingFilter('all');
                 setTradeFilter('all');
               }}
-              className="text-[#0e6e6a] font-semibold hover:underline"
+              className="text-[#0F4C6E] font-semibold hover:underline"
             >
               Reset Filters
             </button>
@@ -278,16 +278,29 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Products Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.slug}
-            product={product}
-            onNavigate={onNavigate}
-          />
-        ))}
-      </div>
+      {filteredProducts.length === 0 ? (
+        <div className="border border-line bg-white px-5 py-10">
+          <p className="text-lg font-serif">No software matches these filters.</p>
+          <button
+            type="button"
+            onClick={() => {
+              setSearchQuery('');
+              setSizeFilter('all');
+              setPricingFilter('all');
+              setTradeFilter('all');
+            }}
+            className="mt-3 text-sm text-primary"
+          >
+            Clear filters
+          </button>
+        </div>
+      ) : (
+        <div className="grid gap-4 lg:grid-cols-2">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.slug} product={product} onNavigate={onNavigate} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

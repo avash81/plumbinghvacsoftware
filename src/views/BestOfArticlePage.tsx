@@ -36,11 +36,11 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Breadcrumbs */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#16201f]/60 font-body">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#17242C]/60 font-body">
         <button
           type="button"
           onClick={() => onNavigate('/')}
-          className="hover:text-[#0e6e6a]"
+          className="hover:text-[#0F4C6E]"
         >
           Home
         </button>
@@ -48,37 +48,37 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
         <button
           type="button"
           onClick={() => onNavigate('/best-of')}
-          className="hover:text-[#0e6e6a]"
+          className="hover:text-[#0F4C6E]"
         >
           Best Of
         </button>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-[#16201f] font-semibold">{article.title}</span>
+        <span className="text-[#17242C] font-semibold">{article.title}</span>
       </nav>
 
       {/* Header */}
-      <div className="space-y-4">
+      <div className="page-intro space-y-4">
         <div className="flex flex-wrap items-center gap-2.5">
           <VerifiedDateBadge date={article.lastUpdated} />
-          <span className="px-2.5 py-1 rounded-md bg-[#0e6e6a]/10 text-[#0e6e6a] text-xs font-bold uppercase font-display">
+          <span className="px-2.5 py-1 rounded-md bg-[#0F4C6E]/10 text-[#0F4C6E] text-xs font-bold uppercase font-display">
             {article.categoryTag}
           </span>
-          <span className="text-xs text-[#16201f]/50 font-data">{article.readTime}</span>
+          <span className="text-xs text-[#17242C]/50 font-data">{article.readTime}</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#16201f] tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#17242C] tracking-tight leading-tight">
           {article.title}
         </h1>
 
-        <p className="text-base md:text-lg text-[#16201f]/80 font-body leading-relaxed max-w-4xl">
+        <p className="text-base md:text-lg text-[#17242C]/80 font-body leading-relaxed max-w-4xl">
           {article.subtitle}
         </p>
       </div>
 
       {/* Editorial Intro Callout */}
-      <div className="bg-[#fbfaf8] border border-[#dde3e1] rounded-2xl p-6 md:p-8 text-sm text-[#16201f]/90 leading-relaxed font-body shadow-xs space-y-3">
-        <h2 className="text-lg font-bold font-display text-[#16201f] flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-[#0e6e6a]" />
+      <div className="bg-[#F3F6F8] border border-[#D3DDE3] rounded-2xl p-6 md:p-8 text-sm text-[#17242C]/90 leading-relaxed font-body shadow-xs space-y-3">
+        <h2 className="text-lg font-bold font-display text-[#17242C] flex items-center gap-2">
+          <BookOpen className="w-5 h-5 text-[#0F4C6E]" />
           <span>Evaluation Summary</span>
         </h2>
         <p>{article.intro}</p>
@@ -86,7 +86,7 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
 
       {/* Top Ranked Picks Section */}
       <section className="space-y-6">
-        <h2 className="text-2xl font-bold font-display text-[#16201f]">
+        <h2 className="text-2xl font-bold font-display text-[#17242C]">
           Top Recommended Platforms at a Glance
         </h2>
 
@@ -98,32 +98,32 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
             return (
               <div
                 key={pick.productSlug}
-                className="bg-white border-2 border-[#dde3e1] hover:border-[#0e6e6a] rounded-2xl p-6 md:p-8 shadow-xs transition-all space-y-5"
+                className="bg-white border-2 border-[#D3DDE3] hover:border-[#0F4C6E] rounded-2xl p-6 md:p-8 shadow-xs transition-all space-y-5"
               >
-                <div className="flex flex-wrap items-start justify-between gap-4 pb-4 border-b border-[#dde3e1]">
+                <div className="flex flex-wrap items-start justify-between gap-4 pb-4 border-b border-[#D3DDE3]">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="w-6 h-6 rounded-full bg-[#0e6e6a] text-white text-xs font-bold flex items-center justify-center font-display">
+                      <span className="w-6 h-6 rounded-full bg-[#0F4C6E] text-white text-xs font-bold flex items-center justify-center font-display">
                         #{pick.rank}
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#d97a3f]/15 text-[#d97a3f] text-xs font-bold uppercase font-display">
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#0F4C6E]/15 text-[#0F4C6E] text-xs font-bold uppercase font-display">
                         {pick.awardTitle}
                       </span>
                     </div>
 
                     <h3
                       onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
-                      className="text-2xl font-bold font-display text-[#16201f] hover:text-[#0e6e6a] cursor-pointer transition-colors"
+                      className="text-2xl font-bold font-display text-[#17242C] hover:text-[#0F4C6E] cursor-pointer transition-colors"
                     >
                       {product.name}
                     </h3>
                   </div>
 
                   <div className="text-right">
-                    <span className="text-xl font-bold font-data text-[#0e6e6a] block">
+                    <span className="text-xl font-bold font-data text-[#0F4C6E] block">
                       {product.ratings.overall.toFixed(1)} / 5.0
                     </span>
-                    <span className="text-xs text-[#16201f]/60 font-medium">
+                    <span className="text-xs text-[#17242C]/60 font-medium">
                       Starting at {product.startingPrice}
                     </span>
                   </div>
@@ -131,10 +131,10 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
 
                 {/* Why Picked */}
                 <div className="space-y-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0e6e6a] font-display">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#0F4C6E] font-display">
                     Why We Selected It:
                   </span>
-                  <p className="text-sm text-[#16201f]/85 leading-relaxed font-body">
+                  <p className="text-sm text-[#17242C]/85 leading-relaxed font-body">
                     {pick.shortWhy}
                   </p>
                 </div>
@@ -152,7 +152,7 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
                   <button
                     type="button"
                     onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
-                    className="text-xs font-bold text-[#0e6e6a] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-[#0F4C6E] hover:underline flex items-center gap-1"
                   >
                     <span>Read Full {product.name} Review</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -172,21 +172,21 @@ export const BestOfArticlePage: React.FC<BestOfArticlePageProps> = ({
 
       {/* Side-by-Side Comparison Table */}
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold font-display text-[#16201f]">
+        <h2 className="text-2xl font-bold font-display text-[#17242C]">
           Pillar Comparison Matrix
         </h2>
         <ComparisonTable products={featuredProducts} highlightSlug={featuredProducts[0]?.slug} />
       </section>
 
       {/* Buyer's Guide Checklist */}
-      <section className="bg-white border border-[#dde3e1] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs">
-        <h2 className="text-2xl font-bold font-display text-[#16201f]">
+      <section className="bg-white border border-[#D3DDE3] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs">
+        <h2 className="text-2xl font-bold font-display text-[#17242C]">
           Contractor Buyer's Checklist: What to Verify Before Buying
         </h2>
         <ul className="space-y-3">
           {article.buyingGuideChecklist.map((item, index) => (
-            <li key={index} className="flex items-start gap-3 text-sm text-[#16201f]/90 leading-relaxed font-body">
-              <div className="w-5 h-5 rounded-full bg-[#0e6e6a]/15 text-[#0e6e6a] flex items-center justify-center shrink-0 mt-0.5">
+            <li key={index} className="flex items-start gap-3 text-sm text-[#17242C]/90 leading-relaxed font-body">
+              <div className="w-5 h-5 rounded-full bg-[#0F4C6E]/15 text-[#0F4C6E] flex items-center justify-center shrink-0 mt-0.5">
                 <Check className="w-3.5 h-3.5 stroke-[2.5]" />
               </div>
               <span>{item}</span>
