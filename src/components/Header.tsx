@@ -1,165 +1,156 @@
-/**
- * Header.tsx
- * ---------------------------------------------------------
- * Global navigation component.
- * Contains brand logo, desktop navigation, and mobile hamburger menu.
- *
- * Data source: N/A
- * Related: App.tsx (navigate function), Footer.tsx
- *
- * Guide reference: project-implementation-guide.md, Section 3, 11
- * ---------------------------------------------------------
- */
-
 import React, { useState } from 'react';
-import { Wrench, Menu, X, ChevronDown, Award, Scale, BookOpen, Layers, ShieldCheck, Calculator } from 'lucide-react';
+import { Menu, X, Search, Wrench } from 'lucide-react';
 
 interface HeaderProps {
   currentRoute: string;
   onNavigate: (route: string) => void;
 }
 
-/**
- * Sticky header component with responsive navigation and brand identity.
- */
 export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
+  const [query, setQuery] = useState('');
 
   const navLinks = [
-    { label: 'Reviews', route: '/software-reviews', icon: Layers },
-    { label: 'Compare', route: '/compare', icon: Scale },
-    { label: 'Best Of', route: '/best-of', icon: Award },
-    { label: 'Guides', route: '/guides', icon: BookOpen },
-    { label: 'Tools', route: '/tools', icon: Calculator },
+    { label: 'Reviews', route: '/software-reviews' },
+    { label: 'Compare', route: '/compare' },
+    { label: 'Best of', route: '/best-of' },
+    { label: 'Guides', route: '/guides' },
+    { label: 'Tools', route: '/tools' },
   ];
 
   const handleNav = (route: string) => {
     setMobileMenuOpen(false);
-    setToolsDropdownOpen(false);
     onNavigate(route);
   };
 
+  const submitSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    setMobileMenuOpen(false);
+    onNavigate(q ? `/search?q=${encodeURIComponent(q)}` : '/software-reviews');
+  };
+
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#dde3e1]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Brand Logo */}
-          <div
-            id="brand-logo-container"
+    <header className="sticky top-0 z-40 border-b border-line/80 bg-white/95 shadow-sm backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-[4.75rem] items-center gap-4 lg:gap-6">
+          <button
+            type="button"
             onClick={() => handleNav('/')}
-            className="flex items-center gap-3 cursor-pointer select-none group"
+            className="flex shrink-0 items-center gap-3 text-left"
           >
-            <div className="w-10 h-10 rounded-sm bg-[#0e6e6a] flex items-center justify-center text-white shadow-xs group-hover:bg-[#0a4f4c] transition-colors">
-              <Wrench className="w-5 h-5 stroke-[2.4]" />
-            </div>
-            <div>
-              <span className="text-xl xs:text-2xl font-black spec-font tracking-tight text-[#16201f] block leading-none">
-                PHS<span className="text-[#0e6e6a]">.</span>
-              </span>
-              <span className="text-[8px] xs:text-[10px] font-bold tracking-tighter xs:tracking-widest uppercase text-[#16201f]/60 block mt-1 whitespace-nowrap">
-                PLUMBING & HVAC SOFTWARE
-              </span>
-            </div>
-          </div>
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-white shadow-sm">
+              <Wrench className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <span>
+              <span className="block font-serif text-2xl font-semibold leading-none text-ink">PHS</span>
+              <span className="mt-1 block text-[10px] font-medium text-muted">Plumbing & HVAC software</span>
+            </span>
+          </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <nav className="ml-1 hidden items-center gap-1 lg:flex" aria-label="Primary">
             {navLinks.map((item) => {
-              const isActive =
-                currentRoute === item.route ||
-                (item.route !== '/' && currentRoute.startsWith(item.route));
-
+              const isActive = currentRoute === item.route || currentRoute.startsWith(item.route);
               return (
                 <button
                   key={item.route}
                   id={`nav-link-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                   type="button"
                   onClick={() => handleNav(item.route)}
-                  className={`px-3.5 py-2 rounded-sm text-xs font-bold uppercase tracking-wider transition-all ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-[#0e6e6a] bg-[#0e6e6a]/10 border-b-2 border-[#0e6e6a]'
-                      : 'text-[#16201f]/80 hover:text-[#0e6e6a] hover:bg-neutral-100/80'
+                      ? 'bg-[#eaf2f5] text-primary'
+                      : 'text-ink/80 hover:bg-slate-50 hover:text-primary'
                   }`}
                 >
                   {item.label}
                 </button>
               );
             })}
-
-            <div className="h-5 w-px bg-[#dde3e1] mx-2" />
-
-            {/* Quick Match CTA button */}
-            <button
-              id="header-quiz-cta"
-              type="button"
-              onClick={() => handleNav('/tools')}
-              className="px-4 py-2 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-xs font-bold uppercase tracking-wider rounded-md shadow-xs transition-all flex items-center gap-1.5"
-            >
-              <Calculator className="w-3.5 h-3.5" />
-              <span>Software Quiz</span>
-            </button>
           </nav>
 
-          {/* Mobile Hamburger Button */}
-          <div className="flex md:hidden items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-[#16201f] hover:bg-neutral-100"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <form onSubmit={submitSearch} className="ml-auto hidden max-w-[15rem] flex-1 items-center rounded-xl border border-line bg-[#f7f9fa] focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 md:flex">
+            <label htmlFor="header-search" className="sr-only">Search software</label>
+            <input
+              id="header-search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search software"
+              className="w-full min-w-0 bg-transparent px-3 py-2.5 text-sm outline-none"
+            />
+            <button type="submit" className="px-3 text-primary" aria-label="Search">
+              <Search className="w-4 h-4" />
             </button>
-          </div>
+          </form>
+
+          <button
+            id="header-quiz-cta"
+            type="button"
+            onClick={() => handleNav('/tools')}
+            className="hidden min-h-11 shrink-0 items-center rounded-xl bg-primary px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark md:inline-flex"
+          >
+            Find software
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="ml-auto flex h-11 w-11 items-center justify-center rounded-xl text-ink transition-colors hover:bg-slate-100 lg:hidden"
+            aria-expanded={mobileMenuOpen}
+            aria-controls={mobileMenuOpen ? 'mobile-primary-navigation' : undefined}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#dde3e1] bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg animate-fadeIn">
+        <div id="mobile-primary-navigation" className="space-y-2 border-t border-line bg-white px-4 py-4 shadow-lg lg:hidden">
+          <form onSubmit={submitSearch} className="mb-3 flex rounded-xl border border-line bg-[#f7f9fa]">
+            <label htmlFor="mobile-search" className="sr-only">Search software</label>
+            <input
+              id="mobile-search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search software"
+              className="w-full min-w-0 rounded-l-xl bg-transparent px-3 py-3 text-base outline-none"
+            />
+            <button type="submit" className="px-3 text-primary" aria-label="Search">
+              <Search className="w-4 h-4" />
+            </button>
+          </form>
           {navLinks.map((item) => {
-            const Icon = item.icon;
             const isActive = currentRoute === item.route || currentRoute.startsWith(item.route);
-
             return (
               <button
                 key={item.route}
                 type="button"
                 onClick={() => handleNav(item.route)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-base font-semibold ${
-                  isActive ? 'bg-[#0e6e6a]/10 text-[#0e6e6a]' : 'text-[#16201f] hover:bg-neutral-50'
+                aria-current={isActive ? 'page' : undefined}
+                className={`w-full rounded-xl px-3 py-3 text-left text-base font-medium transition-colors ${
+                  isActive ? 'bg-[#eaf2f5] text-primary' : 'text-ink hover:bg-slate-50'
                 }`}
               >
-                <Icon className="w-5 h-5 text-[#0e6e6a]" />
-                <span>{item.label}</span>
+                {item.label}
               </button>
             );
           })}
-
-          <div className="pt-4 border-t border-[#dde3e1] space-y-2">
-            <button
-              type="button"
-              onClick={() => handleNav('/how-we-test')}
-              className="w-full text-left px-4 py-2 text-xs font-medium text-[#16201f]/75 hover:text-[#0e6e6a]"
-            >
-              Testing Methodology
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNav('/how-we-make-money')}
-              className="w-full text-left px-4 py-2 text-xs font-medium text-[#16201f]/75 hover:text-[#0e6e6a]"
-            >
-              Affiliate Disclosures
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNav('/tools')}
-              className="w-full mt-2 py-3 bg-[#0e6e6a] text-white text-center text-sm font-bold rounded-xl"
-            >
-              Take the Software Finder Quiz
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => handleNav('/how-we-test')}
+            className="w-full rounded-xl px-3 py-3 text-left text-sm text-muted transition-colors hover:bg-slate-50 hover:text-primary"
+          >
+            How we test
+          </button>
+          <button
+            type="button"
+            onClick={() => handleNav('/tools')}
+            className="mt-2 min-h-12 w-full rounded-xl bg-primary py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark"
+          >
+            Find software
+          </button>
         </div>
       )}
     </header>

@@ -49,20 +49,26 @@ export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(() => {
     return window.location.pathname || '/';
   });
+  const [search, setSearch] = useState<string>(() => window.location.search);
 
   // Listen to browser forward/back buttons
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname || '/');
+      setSearch(window.location.search);
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const navigate = (route: string) => {
-    if (route === currentPath) return;
-    window.history.pushState({}, '', route);
-    setCurrentPath(route);
+    const url = new URL(route, window.location.origin);
+    const path = url.pathname || '/';
+    const nextSearch = url.search;
+    if (path === currentPath && nextSearch === search) return;
+    window.history.pushState({}, '', `${path}${nextSearch}`);
+    setCurrentPath(path);
+    setSearch(nextSearch);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -145,7 +151,7 @@ export default function App() {
 
     // 6b. Search Results Page
     if (currentPath === '/search' || currentPath === '/search/') {
-      return <SearchPage onNavigate={navigate} />;
+      return <SearchPage key={search} onNavigate={navigate} />;
     }
 
     // 7. How We Test
@@ -189,13 +195,13 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fbfaf8] flex flex-col justify-between text-[#16201f] selection:bg-[#0e6e6a]/20 selection:text-[#0e6e6a]">
+    <div className="min-h-screen bg-paper flex flex-col justify-between text-ink">
       <SEOHead {...generateMetadata(currentPath)} />
-      <div>
-        {/* Global Navigation Header */}
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:px-3 focus:py-2">
+        Skip to content
+      </a>
+      <div className="flex-1">
         <Header currentRoute={currentPath} onNavigate={navigate} />
-
-        {/* Main Content Area */}
         <main id="main-content">
           {renderCurrentView()}
         </main>

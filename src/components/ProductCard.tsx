@@ -1,8 +1,7 @@
 import React from 'react';
-import { Star, ShieldCheck, Check, ArrowRight } from 'lucide-react';
+import { ArrowRight, Layers3 } from 'lucide-react';
 import { ProductData } from '../types';
 import { AffiliateCTA } from './AffiliateCTA';
-import { VerifiedDateBadge } from './VerifiedDateBadge';
 
 interface ProductCardProps {
   product: ProductData;
@@ -20,92 +19,79 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   highlight = false,
 }) => {
   return (
-    <div
+    <article
       id={`product-card-${product.slug}`}
-      className={`bg-white border p-6 transition-all duration-200 flex flex-col justify-between hover:shadow-md rounded-xl ${
-        highlight
-          ? 'border-[#0e6e6a] shadow-xs ring-1 ring-[#0e6e6a]'
-          : 'border-[#dde3e1] hover:border-[#0e6e6a]'
+      className={`flex h-full flex-col rounded-2xl border p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6 ${
+        highlight ? 'border-primary/40 bg-[#f4f9fb]' : 'border-line bg-white'
       }`}
     >
-      <div>
-        {/* Top Header with Badges & Rank */}
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2 flex-wrap">
-            {rank && (
-              <span className="w-6 h-6 rounded-md bg-[#16201f] text-white text-xs font-bold flex items-center justify-center font-display">
-                #{rank}
-              </span>
-            )}
-            {badge && (
-              <span className="px-2.5 py-0.5 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-[11px] font-semibold">
-                {badge}
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-1 bg-[#0e6e6a]/10 text-[#0e6e6a] px-2.5 py-0.5 rounded-full text-xs font-bold">
-            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-            <span>{product.ratings.overall.toFixed(1)}</span>
-          </div>
-        </div>
-
-        {/* Title and Tagline */}
-        <h3
-          onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
-          className="text-xl font-bold font-display text-[#16201f] hover:text-[#0e6e6a] cursor-pointer transition-colors leading-tight"
-        >
-          {product.name}
-        </h3>
-        <p className="text-xs text-[#16201f]/75 mt-1 font-body line-clamp-2">
-          {product.tagline}
-        </p>
-
-        {/* Pricing Specs Box */}
-        <div className="my-4 py-2.5 px-3 bg-[#fbfaf8] border border-[#dde3e1] text-xs font-medium space-y-1.5 rounded-lg">
-          <div className="flex justify-between items-center">
-            <span className="text-[11px] uppercase tracking-wider text-[#16201f]/70 font-bold">Starts At:</span>
-            <span className="font-bold text-[#16201f] text-sm">{product.startingPrice}</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-[11px] uppercase tracking-wider text-[#16201f]/70 font-bold">Team Size:</span>
-            <span className="font-bold text-[#0e6e6a]">{product.targetTeamSize}</span>
-          </div>
-        </div>
-
-        {/* Key Pros Summary */}
-        <div className="space-y-1.5 my-3">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#16201f]/75 font-display block">
-            Key Pros:
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#eaf2f5] text-primary">
+            <Layers3 className="h-5 w-5" aria-hidden="true" />
           </span>
-          <ul className="space-y-1 text-xs text-[#16201f]/85">
-            {product.pros.slice(0, 3).map((pro, i) => (
-              <li key={i} className="flex items-start gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#0e6e6a] shrink-0 mt-0.5 stroke-[2.5]" />
-                <span className="line-clamp-2">{pro}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="min-w-0">
+            {badge && <p className="mb-1 text-xs font-semibold text-primary">{badge}</p>}
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">Sample listing</p>
+            <h3 className="truncate font-serif text-2xl text-ink">
+              <button
+                type="button"
+                onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
+                className="text-left transition-colors hover:text-primary"
+              >
+                {product.name}
+              </button>
+            </h3>
+          </div>
+        </div>
+        {rank != null && <span className="rounded-lg bg-[#f1f5f7] px-3 py-1 text-xs font-semibold text-ink">#{rank}</span>}
+      </div>
+
+      <div className="mt-5">
+        <p className="text-sm leading-6 text-muted">{product.tagline}</p>
+        <p className="mt-3 text-sm font-medium text-ink">Best for</p>
+        <p className="mt-1 text-sm leading-6 text-muted">{product.bestFor}</p>
+      </div>
+
+      <div className="mt-5 rounded-xl bg-[#f4f7f9] p-4">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">Editorial score</p>
+            <p className="mt-1 font-serif text-3xl leading-none text-primary tabular-nums">
+              {product.ratings.overall.toFixed(1)}<span className="ml-1 text-sm text-muted">/ 5</span>
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="font-serif text-2xl leading-none text-ink">{product.startingPrice}</p>
+            <p className="mt-1 text-xs text-muted">{product.targetTeamSize}</p>
+          </div>
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="pt-4 mt-4 border-t border-[#dde3e1] space-y-2">
+      <ul className="mt-5 space-y-2">
+        {product.pros.slice(0, 2).map((pro) => (
+          <li key={pro} className="flex items-start gap-2 text-sm leading-5 text-ink/90">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70" aria-hidden="true" />
+            <span>{pro}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
+        <button
+          type="button"
+          onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
+          className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
+        >
+          Read sample review <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </button>
         <AffiliateCTA
           productSlug={product.slug}
           productName={product.name}
           variant="primary"
-          className="w-full"
+          label="Visit site"
         />
-
-        <button
-          type="button"
-          onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
-          className="w-full py-2 text-center text-xs font-bold uppercase tracking-wider text-[#0e6e6a] hover:text-[#0a4f4c] hover:bg-[#0e6e6a]/5 transition-colors flex items-center justify-center gap-1 rounded-md"
-        >
-          Full Review <ArrowRight className="w-3.5 h-3.5" />
-        </button>
       </div>
-    </div>
+    </article>
   );
 };

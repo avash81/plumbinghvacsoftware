@@ -1,42 +1,87 @@
-/**
- * HomePage.tsx
- * ---------------------------------------------------------
- * Clean, structured home page layout matching the reference format:
- * 1. Hero with Rate and Find headline, subtitle, and pill search bar
- * 2. Popular Software grid (3 columns) with badges, ratings, and summaries
- * 3. Explore by Category grid (3 columns) with checkmark items
- * 4. Trending Software / Showdowns grid (3 columns)
- * 5. Frequently Asked Questions accordion (2 columns)
- * ---------------------------------------------------------
- */
-
 import React, { useState } from 'react';
 import {
-  Search,
   ArrowRight,
-  Check,
-  ChevronDown,
-  ChevronUp,
-  Star,
+  BadgeCheck,
+  BookOpen,
+  CalendarDays,
+  CircleDollarSign,
+  ClipboardList,
+  GitCompareArrows,
+  Layers3,
+  ReceiptText,
+  Search,
+  Sparkles,
+  Truck,
   Wrench,
-  Scale,
-  Layers,
-  Award,
-  Calculator,
-  ShieldCheck,
-  FileText,
-  Clock,
 } from 'lucide-react';
-import { PRODUCT_LIST, PRODUCTS } from '../lib/products';
+import { PRODUCT_LIST } from '../lib/products';
 import { COMPARISON_LIST } from '../lib/comparisons';
+import { BEST_OF_LIST } from '../lib/best-of';
+import { GUIDE_LIST } from '../lib/guides';
+import { ProductCard } from '../components/ProductCard';
+import { FAQAccordion } from '../components/FAQAccordion';
 
 interface HomePageProps {
   onNavigate: (route: string) => void;
 }
 
+const categories = [
+  { title: 'Dispatch and scheduling', detail: 'Keep jobs and crews in sync.', route: '/software-reviews', icon: CalendarDays },
+  { title: 'Invoicing and payments', detail: 'Get estimates and billing moving.', route: '/software-reviews', icon: ReceiptText },
+  { title: 'QuickBooks sync', detail: 'Spend less time reconciling.', route: '/software-reviews', icon: CircleDollarSign },
+  { title: 'Flat-rate pricebooks', detail: 'Build consistent service pricing.', route: '/guides', icon: ClipboardList },
+  { title: 'GPS and fleet tracking', detail: 'See where the work is happening.', route: '/software-reviews', icon: Truck },
+  { title: 'Job costing and inventory', detail: 'Understand the cost of each job.', route: '/software-reviews', icon: Layers3 },
+] as const;
+
+const faqs = [
+  {
+    question: 'How do I find the right software for my needs?',
+    answer:
+      'Start with technician headcount and the work you actually sell. Small residential crews usually need fast quoting and invoicing. Larger fleets need inventory, dispatch, and job costing. The finder quiz on the Tools page asks four questions and returns a match from the catalog.',
+  },
+  {
+    question: 'Are the reviews trustworthy?',
+    answer:
+      'PHS does not sell placement in the rankings. Scores come from the same criteria on every product: dispatch and mobile use, invoicing, QuickBooks sync, pricebook support, value, and support. Some outbound links are affiliate links, and those are labeled.',
+  },
+  {
+    question: 'How do I write a review for software I have used?',
+    answer:
+      'PHS is not currently collecting user-submitted reviews. The contact form is a visual demo and does not send messages yet.',
+  },
+  {
+    question: 'Can I compare more than one product?',
+    answer:
+      'Yes. Open Compare, pick two products, and read the feature table. Published matchups also explain which product fits a small crew, plumbing work, or HVAC work.',
+  },
+  {
+    question: 'How do I claim a software listing?',
+    answer:
+      'The catalog currently contains sample listings. Vendor submissions are not enabled yet.',
+  },
+  {
+    question: 'Is the site free?',
+    answer:
+      'Yes. Reviews, comparisons, guides, and tools are free to read. There is no contractor subscription.',
+  },
+  {
+    question: 'How are ratings calculated?',
+    answer:
+      'The overall score is the average of six ratings: value, ease of use, dispatch and mobile, invoicing, QuickBooks sync, and customer support. Each one is scored out of 5.',
+  },
+  {
+    question: 'Can I save a product for later?',
+    answer: 'Bookmark the review or comparison URL. Those addresses stay stable when a page is updated.',
+  },
+];
+
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const comparison = COMPARISON_LIST[0];
+  const roundup = BEST_OF_LIST[0];
+  const guide = GUIDE_LIST[0];
+  const previewProducts = PRODUCT_LIST.slice(0, 2);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,478 +92,188 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     }
   };
 
-  const toggleFaq = (idx: number) => {
-    setOpenFaq(openFaq === idx ? null : idx);
-  };
-
-  // Trade software categories matching Image 3 structure
-  const categories = [
-    { title: 'Plumbing Dispatch Software', route: '/software-reviews' },
-    { title: 'HVAC Scheduling & Tune-ups', route: '/software-reviews' },
-    { title: 'QuickBooks Accounting Sync', route: '/software-reviews' },
-    { title: 'Flat-Rate Quoting & Pricebooks', route: '/guides' },
-    { title: 'Mobile Invoicing & Payments', route: '/software-reviews' },
-    { title: 'GPS Fleet & Vehicle Tracking', route: '/software-reviews' },
-    { title: 'Commercial Project Job Costing', route: '/software-reviews' },
-    { title: 'Multi-Truck Inventory Management', route: '/software-reviews' },
-    { title: 'Customer Portal & Online Booking', route: '/software-reviews' },
-  ];
-
-  // Frequently Asked Questions matching Image 5 structure
-  const faqs = [
-    {
-      q: 'How do I find the right software for my needs?',
-      a: 'Start by evaluating your technician headcount and trade focus. Small residential crews benefit from mobile-first quoting and fast invoicing, while commercial fleets require multi-truck inventory and progress billing. You can also run our Software Finder Quiz in under 30 seconds for personalized recommendations.',
-    },
-    {
-      q: 'Are the reviews trustworthy?',
-      a: 'Yes. PHS operates under strict editorial independence. We do not accept paid placement fees, sponsored reviews, or preferential rankings. All software evaluations are conducted against standardized benchmarks covering dispatch speed, QuickBooks sync reliability, and mobile offline capabilities.',
-    },
-    {
-      q: "How do I write a review for software I've used?",
-      a: 'We welcome verified field feedback from licensed contractors and trade business owners. Navigate to our Contact page to submit your real-world experience, technician feedback, and workflow ratings to our editorial team.',
-    },
-    {
-      q: 'Can I compare multiple software options?',
-      a: 'Yes. Our Head-to-Head Compare engine allows you to inspect features, per-user pricing, mobile apps, and accounting integrations side by side to make an objective decision without sales pressure.',
-    },
-    {
-      q: 'How do I claim my software vendor listing?',
-      a: 'Software vendors may submit technical documentation, API specs, and verified pricing tier updates to our editorial team via our contact page. Listings are reviewed and verified objectively against our evaluation criteria.',
-    },
-    {
-      q: 'Is it free to use PlumbingHVACSoftware.com?',
-      a: 'Yes, 100% free. All software reviews, feature matrices, comparison tools, and operations playbooks are accessible to trade contractors with zero paywalls or subscription requirements.',
-    },
-    {
-      q: 'How are software ratings calculated?',
-      a: 'Our composite rating averages scores across six core operational pillars: Dispatch & Mobile UX, Invoicing & Payment Speed, QuickBooks Reconciliation, Pricebook Support, Value for Money, and Customer Support reliability.',
-    },
-    {
-      q: 'Can I save my favorite software for later?',
-      a: 'You can bookmark specific software reviews or comparison URLs directly in your browser. All links are evergreen and updated regularly as software vendors roll out new product features.',
-    },
-  ];
-
   return (
-    <div className="space-y-16 md:space-y-24 py-8 md:py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* 1. HERO SECTION (Matching Image 1) */}
-      <section className="text-center max-w-3xl mx-auto pt-4 md:pt-8 space-y-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#16201f] tracking-tight leading-tight">
-          Rate and Find Trusted Software
-        </h1>
-        <p className="text-sm md:text-base text-[#16201f]/75 max-w-2xl mx-auto font-body leading-relaxed">
-          Rate and review software based on your experiences, and explore trusted software to make informed decisions
-        </p>
+    <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+      <section className="market-hero relative isolate -mx-4 overflow-hidden border-b border-line px-4 pb-0 pt-14 text-center sm:-mx-6 sm:px-6 sm:pt-20 lg:-mx-8 lg:px-8">
+        <div className="market-hero__dots pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+        <div className="relative mx-auto max-w-5xl">
+          <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-white/90 px-4 py-2 text-xs font-semibold text-ink shadow-sm sm:text-sm">
+            <Wrench className="h-4 w-4 text-primary" aria-hidden="true" />
+            Independent software research for the trades
+          </p>
+          <h1 className="mt-7 text-5xl text-ink sm:mt-8">
+            Find the right software for your next service call.
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
+            Compare plumbing and HVAC field software with clear editorial scores, pricing examples, and practical guidance for your team.
+          </p>
 
-        {/* Pill Search Bar */}
-        <form
-          onSubmit={handleSearchSubmit}
-          className="pt-4 max-w-2xl mx-auto"
-        >
-          <div className="relative flex items-center bg-white rounded-full border border-[#dde3e1] shadow-md shadow-neutral-200/60 hover:border-[#0e6e6a] transition-all p-1.5 pl-6">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search..."
-              className="w-full bg-transparent text-sm md:text-base text-[#16201f] placeholder-[#16201f]/40 outline-none pr-3"
-            />
-            <button
-              type="submit"
-              className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white flex items-center justify-center shrink-0 transition-colors shadow-xs"
-              aria-label="Search software"
-            >
-              <Search className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
+          <div className="market-hero__actions mt-8 flex max-w-3xl flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+            <form onSubmit={handleSearchSubmit} className="market-hero__search flex min-h-14 w-full max-w-xl items-center gap-2 rounded-xl border border-line bg-white p-1.5 shadow-md focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-orange-100">
+              <label htmlFor="home-search" className="sr-only">Search software</label>
+              <Search className="ml-3 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
+              <input
+                id="home-search"
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search software or features"
+                className="min-w-0 flex-1 border-0 bg-transparent px-2 py-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-0 sm:text-base"
+              />
+              <button type="submit" className="market-cta inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold text-white transition-colors sm:px-5">
+                Search <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </form>
+            <button type="button" onClick={() => onNavigate('/tools')} className="inline-flex min-h-14 items-center justify-center rounded-xl border border-line bg-white px-6 text-sm font-semibold text-ink transition-colors hover:bg-neutral-50">
+              Try the software finder
             </button>
           </div>
-        </form>
-      </section>
 
-      {/* 2. POPULAR SOFTWARE SECTION (Matching Image 2) */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between pb-2">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-display text-[#16201f] relative inline-block">
-              <span className="relative z-10">Popular Software</span>
-              <span className="absolute bottom-1 left-0 w-12 h-1 bg-[#0e6e6a]/40 rounded-full" />
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={() => onNavigate('/software-reviews')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#0e6e6a] text-[#0e6e6a] hover:bg-[#0e6e6a] hover:text-white rounded-lg text-xs md:text-sm font-semibold transition-all"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* 3-Column Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1 */}
-          <div
-            onClick={() => onNavigate('/software-reviews/test-1')}
-            className="bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl p-5 md:p-6 transition-all hover:shadow-md cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <h3 className="text-lg font-bold font-display text-[#16201f] group-hover:text-[#0e6e6a] transition-colors">
-                Test Software 1
-              </h3>
-              <div className="mt-1">
-                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-[11px] font-semibold">
-                  Field Dispatch Software
-                </span>
-              </div>
-
-              <div className="mt-4 flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-xl bg-[#0e6e6a]/15 text-[#0e6e6a] flex items-center justify-center font-bold text-lg shrink-0">
-                  <Wrench className="w-6 h-6 stroke-[2.2]" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex items-center text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                      ))}
-                    </div>
-                    <span className="text-xs font-bold text-[#16201f] ml-1">4.8</span>
-                    <span className="text-[11px] text-[#16201f]/60">(Verified Audit)</span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-xs text-[#16201f]/75 mt-3 line-clamp-2 leading-relaxed">
-                Streamlined technician dispatch, instant SMS on-the-way alerts, and automatic two-way QuickBooks accounting synchronization.
-              </p>
-            </div>
-
-            <div className="pt-4 mt-4 border-t border-[#dde3e1] flex items-center justify-between text-xs font-bold text-[#0e6e6a]">
-              <span>Starting at $49/mo</span>
-              <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Read Review <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted sm:text-sm">
+            <span>{PRODUCT_LIST.length} sample catalog listings</span>
+            <button type="button" onClick={() => onNavigate('/how-we-test')} className="underline decoration-line underline-offset-4 hover:text-primary">
+              How we evaluate software
+            </button>
+            <button type="button" onClick={() => onNavigate('/how-we-make-money')} className="underline decoration-line underline-offset-4 hover:text-primary">
+              Affiliate disclosure
+            </button>
           </div>
 
-          {/* Card 2 */}
-          <div
-            onClick={() => onNavigate('/software-reviews/test-2')}
-            className="bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl p-5 md:p-6 transition-all hover:shadow-md cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <h3 className="text-lg font-bold font-display text-[#16201f] group-hover:text-[#0e6e6a] transition-colors">
-                Test Software 2
-              </h3>
-              <div className="mt-1">
-                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-[11px] font-semibold">
-                  Commercial Fleet Operations
-                </span>
-              </div>
-
-              <div className="mt-4 flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/10 text-blue-700 flex items-center justify-center font-bold text-lg shrink-0">
-                  <Layers className="w-6 h-6 stroke-[2.2]" />
-                </div>
+          <div className="market-preview-card relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-t-2xl border border-line bg-white text-left shadow-2xl sm:mt-16">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line px-4 py-4 sm:px-7">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-primary"><Layers3 className="h-5 w-5" aria-hidden="true" /></span>
                 <div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex items-center text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                      ))}
-                    </div>
-                    <span className="text-xs font-bold text-[#16201f] ml-1">4.6</span>
-                    <span className="text-[11px] text-[#16201f]/60">(Verified Audit)</span>
-                  </div>
+                  <p className="text-xs font-semibold text-primary">PHS SOFTWARE INDEX</p>
+                  <p className="mt-0.5 text-base font-semibold text-ink">A clearer shortlist for your shop</p>
                 </div>
               </div>
-
-              <p className="text-xs text-[#16201f]/75 mt-3 line-clamp-2 leading-relaxed">
-                Comprehensive fleet scheduling, multi-warehouse parts inventory tracking, progressive billing, and commercial job costing.
-              </p>
+              <span className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-semibold text-orange-800">Sample catalog</span>
             </div>
-
-            <div className="pt-4 mt-4 border-t border-[#dde3e1] flex items-center justify-between text-xs font-bold text-[#0e6e6a]">
-              <span>Starting at $99/mo</span>
-              <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Read Review <ArrowRight className="w-3.5 h-3.5" />
-              </span>
+            <div className="divide-y divide-line">
+              {previewProducts.map((product) => (
+                <button
+                  key={product.slug}
+                  type="button"
+                  onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
+                  className="group flex w-full items-center gap-4 px-4 py-4 text-left transition-colors hover:bg-neutral-50 sm:px-7"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-primary"><Layers3 className="h-5 w-5" aria-hidden="true" /></span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-semibold text-ink group-hover:text-primary">{product.name}</span>
+                    <span className="mt-1 block truncate text-sm text-muted">{product.bestFor}</span>
+                  </span>
+                  <span className="hidden text-right sm:block">
+                    <span className="block font-semibold text-ink">{product.startingPrice}</span>
+                    <span className="text-xs text-muted">sample price</span>
+                  </span>
+                  <span className="ml-1 hidden border-l border-line pl-4 text-right sm:block">
+                    <span className="block text-lg font-semibold tabular-nums text-primary">{product.ratings.overall.toFixed(1)}</span>
+                    <span className="text-xs text-muted">editorial</span>
+                  </span>
+                  <ArrowRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-1 group-hover:text-primary" aria-hidden="true" />
+                </button>
+              ))}
             </div>
-          </div>
-
-          {/* Card 3: Interactive Matchmaker / Quiz Card */}
-          <div
-            onClick={() => onNavigate('/tools')}
-            className="bg-[#0e6e6a]/5 border border-[#0e6e6a]/30 hover:border-[#0e6e6a] rounded-xl p-5 md:p-6 transition-all hover:shadow-md cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <h3 className="text-lg font-bold font-display text-[#16201f] group-hover:text-[#0e6e6a] transition-colors">
-                Software Finder Matchmaker
-              </h3>
-              <div className="mt-1">
-                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#0e6e6a] text-white text-[11px] font-semibold">
-                  Interactive Selection Tool
-                </span>
-              </div>
-
-              <div className="mt-4 flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-xl bg-[#0e6e6a] text-white flex items-center justify-center font-bold text-lg shrink-0 shadow-xs">
-                  <Calculator className="w-6 h-6 stroke-[2.2]" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex items-center text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                      ))}
-                    </div>
-                    <span className="text-xs font-bold text-[#16201f] ml-1">5.0</span>
-                    <span className="text-[11px] text-[#16201f]/60">(Decision Tool)</span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-xs text-[#16201f]/75 mt-3 line-clamp-2 leading-relaxed">
-                Filter and match your exact fleet size, plumbing or HVAC specialization, and budget in 4 simple diagnostic questions.
-              </p>
-            </div>
-
-            <div className="pt-4 mt-4 border-t border-[#0e6e6a]/20 flex items-center justify-between text-xs font-bold text-[#0e6e6a]">
-              <span>100% Free Contractor Tool</span>
-              <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Launch Quiz <ArrowRight className="w-3.5 h-3.5" />
-              </span>
+            <div className="flex flex-wrap items-center justify-between gap-3 bg-[#f7f7f8] px-4 py-3 text-xs text-muted sm:px-7">
+              <span>Scores are editorial examples, not user ratings.</span>
+              <button type="button" onClick={() => onNavigate('/software-reviews')} className="inline-flex min-h-9 items-center gap-2 font-semibold text-primary hover:text-primary-dark">
+                Browse all listings <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. EXPLORE BY CATEGORY SECTION (Matching Image 3) */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between pb-2">
+      <section aria-label="Editorial commitments" className="grid gap-3 border-b border-line py-6 sm:grid-cols-3 sm:gap-6">
+        {[
+          { title: 'Scores you can inspect', icon: BadgeCheck, route: '/how-we-test' },
+          { title: 'Affiliate links disclosed', icon: CircleDollarSign, route: '/how-we-make-money' },
+          { title: 'Built around trade workflows', icon: Truck, route: '/software-reviews' },
+        ].map(({ title, icon: Icon, route }) => (
+          <button key={title} type="button" onClick={() => onNavigate(route)} className="flex items-center gap-3 rounded-xl px-3 py-2 text-left transition-colors hover:bg-white">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-primary shadow-sm"><Icon className="h-5 w-5" aria-hidden="true" /></span>
+            <span className="text-sm font-semibold text-ink">{title}</span>
+            <ArrowRight className="ml-auto h-4 w-4 text-muted" aria-hidden="true" />
+          </button>
+        ))}
+      </section>
+
+      <section className="mt-16" aria-labelledby="catalog-heading">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-display text-[#16201f] relative inline-block">
-              <span className="relative z-10">Explore by Category</span>
-              <span className="absolute bottom-1 left-0 w-12 h-1 bg-[#0e6e6a]/40 rounded-full" />
-            </h2>
+            <p className="text-sm font-semibold text-primary">THE CATALOG</p>
+            <h2 id="catalog-heading" className="market-section-heading mt-2 text-3xl font-semibold sm:text-4xl">Software for the work you do</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">Start with the workflows that matter to your shop. These sample listings demonstrate the directory and are not live vendor reviews.</p>
           </div>
-          <button
-            type="button"
-            onClick={() => onNavigate('/guides')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#0e6e6a] text-[#0e6e6a] hover:bg-[#0e6e6a] hover:text-white rounded-lg text-xs md:text-sm font-semibold transition-all"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+          <button type="button" onClick={() => onNavigate('/software-reviews')} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-line bg-white px-4 text-sm font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-slate-50">
+            All reviews <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
-
-        {/* 3-Column Category Pill Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {categories.map((cat, i) => (
-            <div
-              key={i}
-              onClick={() => onNavigate(cat.route)}
-              className="bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl p-4 flex items-center gap-3 transition-all hover:shadow-xs cursor-pointer group"
-            >
-              <div className="w-5 h-5 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center shrink-0 group-hover:bg-[#0e6e6a] group-hover:text-white transition-colors">
-                <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-              </div>
-              <span className="text-xs md:text-sm font-semibold text-[#16201f] group-hover:text-[#0e6e6a] transition-colors leading-snug">
-                {cat.title}
-              </span>
-            </div>
+        <div className="grid gap-4 lg:grid-cols-2">
+          {PRODUCT_LIST.map((product) => (
+            <ProductCard key={product.slug} product={product} onNavigate={onNavigate} />
           ))}
         </div>
       </section>
 
-      {/* 4. TRENDING SHOWDOWNS & COMPARISONS (Matching Image 4) */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between pb-2">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-display text-[#16201f] relative inline-block">
-              <span className="relative z-10">Trending Showdowns</span>
-              <span className="absolute bottom-1 left-0 w-12 h-1 bg-[#0e6e6a]/40 rounded-full" />
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={() => onNavigate('/compare')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#0e6e6a] text-[#0e6e6a] hover:bg-[#0e6e6a] hover:text-white rounded-lg text-xs md:text-sm font-semibold transition-all"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+      <section className="mt-16" aria-labelledby="browse-heading">
+        <div className="mb-6 max-w-2xl">
+          <p className="text-sm font-semibold text-primary">BROWSE BY WORKFLOW</p>
+          <h2 id="browse-heading" className="market-section-heading mt-2 text-3xl font-semibold sm:text-4xl">What does your business need to do better?</h2>
         </div>
-
-        {/* 3-Column Trending Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Showdown 1 */}
-          <div
-            onClick={() => onNavigate('/compare/test-1-vs-test-2')}
-            className="bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl p-5 md:p-6 transition-all hover:shadow-md cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center font-bold">
-                    <Scale className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold font-display text-[#16201f] group-hover:text-[#0e6e6a] transition-colors">
-                      Test 1 vs Test 2
-                    </h3>
-                    <div className="flex items-center text-amber-400 text-xs">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-current" />
-                      ))}
-                      <span className="text-[11px] text-[#16201f]/60 ml-1 font-semibold">4.8 (Head-to-Head)</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t border-[#dde3e1] my-3.5" />
-
-              <p className="text-xs text-[#16201f]/75 line-clamp-3 leading-relaxed">
-                Direct head-to-head showdown contrasting agile 1–5 tech dispatch against multi-truck commercial project management, retainage billing, and inventory tracking.
-              </p>
-            </div>
-
-            <div className="pt-3 mt-3 flex items-center justify-between text-xs font-bold text-[#0e6e6a]">
-              <span>Verified Matchup</span>
-              <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Compare Now <ArrowRight className="w-3.5 h-3.5" />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map(({ title, detail, route, icon: Icon }) => (
+            <button key={title} type="button" onClick={() => onNavigate(route)} className="market-resource-link flex min-h-28 items-center gap-4 rounded-2xl border border-line bg-white p-5 text-left hover:border-primary/40">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-primary"><Icon className="h-5 w-5" aria-hidden="true" /></span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-semibold text-ink">{title}</span>
+                <span className="mt-1 block text-sm text-muted">{detail}</span>
               </span>
-            </div>
-          </div>
-
-          {/* Showdown 2: Best Of Pillar Roundup */}
-          <div
-            onClick={() => onNavigate('/best-of/test-best-of')}
-            className="bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl p-5 md:p-6 transition-all hover:shadow-md cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center font-bold">
-                    <Award className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold font-display text-[#16201f] group-hover:text-[#0e6e6a] transition-colors">
-                      Top Ranked Pillar Roundup
-                    </h3>
-                    <div className="flex items-center text-amber-400 text-xs">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-current" />
-                      ))}
-                      <span className="text-[11px] text-[#16201f]/60 ml-1 font-semibold">4.9 (Curated)</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t border-[#dde3e1] my-3.5" />
-
-              <p className="text-xs text-[#16201f]/75 line-clamp-3 leading-relaxed">
-                In-depth editorial roundup ranking platforms by crew size, featuring top-ranked awards, real-world tradeoffs, and contractor evaluation checklists.
-              </p>
-            </div>
-
-            <div className="pt-3 mt-3 flex items-center justify-between text-xs font-bold text-[#0e6e6a]">
-              <span>Curated Pillar Guide</span>
-              <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Read Rankings <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </div>
-
-          {/* Showdown 3: Operations Playbook */}
-          <div
-            onClick={() => onNavigate('/guides/how-to/test-guide')}
-            className="bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl p-5 md:p-6 transition-all hover:shadow-md cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#0e6e6a]/10 text-[#0e6e6a] flex items-center justify-center font-bold">
-                    <FileText className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold font-display text-[#16201f] group-hover:text-[#0e6e6a] transition-colors">
-                      Operations Playbook
-                    </h3>
-                    <div className="flex items-center text-amber-400 text-xs">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-current" />
-                      ))}
-                      <span className="text-[11px] text-[#16201f]/60 ml-1 font-semibold">5.0 (Field Guide)</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t border-[#dde3e1] my-3.5" />
-
-              <p className="text-xs text-[#16201f]/75 line-clamp-3 leading-relaxed">
-                Standard operating procedures for on-site mobile documentation, automated SMS customer alerts, and same-day payment closeout in the field.
-              </p>
-            </div>
-
-            <div className="pt-3 mt-3 flex items-center justify-between text-xs font-bold text-[#0e6e6a]">
-              <span>Field SOP Guide</span>
-              <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                Explore SOPs <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </div>
+              <ArrowRight className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+            </button>
+          ))}
         </div>
       </section>
 
-      {/* 5. FREQUENTLY ASKED QUESTIONS SECTION (Matching Image 5) */}
-      <section className="space-y-6 pt-4">
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display text-[#16201f] relative inline-block">
-            <span className="relative z-10">Frequently Asked Questions</span>
-            <span className="absolute bottom-1 left-0 w-16 h-1 bg-[#0e6e6a]/40 rounded-full" />
-          </h2>
-          <p className="text-xs md:text-sm text-[#16201f]/75 font-body leading-relaxed">
-            Got questions? We've got answers. Delve into our Frequently Asked Questions (FAQs) section to find comprehensive information about your inquiries.
-          </p>
+      <section className="mt-16 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]" aria-label="Research and tools">
+        {comparison && (
+          <button type="button" onClick={() => onNavigate(`/compare/${comparison.slug}`)} className="market-resource-link rounded-2xl bg-[#1b1b1f] p-6 text-left text-white sm:p-8">
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-orange-300"><GitCompareArrows className="h-5 w-5" aria-hidden="true" /></span>
+            <span className="mt-6 block text-sm font-semibold text-orange-200">HEAD-TO-HEAD</span>
+            <span className="mt-2 block font-serif text-2xl sm:text-3xl">{comparison.title}</span>
+            <span className="mt-3 block max-w-xl text-sm leading-6 text-slate-200">{comparison.subtitle}</span>
+            <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold">Read the comparison <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
+          </button>
+        )}
+        <div className="grid gap-5">
+          {roundup && (
+            <button type="button" onClick={() => onNavigate(`/best-of/${roundup.slug}`)} className="market-resource-link flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 text-left sm:p-7">
+              <span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><Sparkles className="h-5 w-5" aria-hidden="true" /></span>
+                <span className="mt-4 block text-sm font-semibold text-primary">ROUNDUPS · {roundup.readTime}</span>
+                <span className="mt-2 block font-serif text-2xl text-ink">{roundup.title}</span>
+                <span className="mt-2 block text-sm leading-6 text-muted">{roundup.subtitle}</span>
+              </span>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Explore the roundup <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
+            </button>
+          )}
+          {guide && (
+            <button type="button" onClick={() => onNavigate(`/guides/${guide.category}/${guide.slug}`)} className="market-resource-link flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 text-left sm:p-7">
+              <span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-primary"><BookOpen className="h-5 w-5" aria-hidden="true" /></span>
+                <span className="mt-4 block text-sm font-semibold text-primary">FIELD GUIDE · {guide.readTime}</span>
+                <span className="mt-2 block font-serif text-2xl text-ink">{guide.title}</span>
+                <span className="mt-2 block text-sm leading-6 text-muted">{guide.intro}</span>
+              </span>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Read the guide <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
+            </button>
+          )}
         </div>
+      </section>
 
-        {/* 2-Column Accordion Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-5xl mx-auto pt-4">
-          {faqs.map((faq, idx) => {
-            const isOpen = openFaq === idx;
-            return (
-              <div
-                key={idx}
-                className="bg-white border border-[#dde3e1] rounded-xl overflow-hidden transition-all shadow-2xs self-start"
-              >
-                <button
-                  type="button"
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full p-4 md:p-5 text-left font-bold text-sm md:text-base text-[#16201f] flex items-center justify-between gap-3 hover:text-[#0e6e6a] transition-colors"
-                >
-                  <span className="leading-snug">{faq.q}</span>
-                  <div className="shrink-0 text-[#16201f]/50">
-                    {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-[#0e6e6a]" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
-                  </div>
-                </button>
-
-                {isOpen && (
-                  <div className="px-4 pb-4 md:px-5 md:pb-5 pt-0 text-xs md:text-sm text-[#16201f]/80 leading-relaxed font-body border-t border-neutral-100 mt-1">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+      <section className="mt-16 rounded-2xl border border-line bg-white p-5 sm:p-8">
+        <FAQAccordion faqs={faqs} title="Questions contractors ask first" />
       </section>
     </div>
   );

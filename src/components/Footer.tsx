@@ -1,18 +1,42 @@
-/**
- * Footer.tsx
- * ---------------------------------------------------------
- * Bespoke, clean footer tailored specifically for PHS (Plumbing HVAC Software).
- * Follows the clean, spacious layout requested by the user while incorporating
- * unique trade-specific resources and full Google AdSense policy compliance.
- * ---------------------------------------------------------
- */
-
 import React, { useState } from 'react';
-import { Send, CheckCircle2, Wrench, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Wrench } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (route: string) => void;
 }
+
+const groups = [
+  {
+    title: 'Research',
+    links: [
+      ['Software reviews', '/software-reviews'],
+      ['Compare', '/compare'],
+      ['Best of', '/best-of'],
+      ['Guides', '/guides'],
+      ['Finder quiz', '/tools'],
+      ['Cost calculator', '/tools'],
+    ],
+  },
+  {
+    title: 'About',
+    links: [
+      ['Our story', '/about'],
+      ['How we test', '/how-we-test'],
+      ['How we make money', '/how-we-make-money'],
+      ['Contact', '/contact'],
+      ['Marcus Vance', '/authors/marcus-vance'],
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      ['Privacy policy', '/privacy-policy'],
+      ['Terms of service', '/terms-of-service'],
+      ['Cookie policy', '/privacy-policy'],
+      ['Affiliate disclosure', '/how-we-make-money'],
+    ],
+  },
+] as const;
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const [email, setEmail] = useState('');
@@ -27,265 +51,74 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer className="bg-[#111514] text-neutral-300 pt-16 md:pt-20 pb-12 text-sm font-sans border-t border-neutral-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Grid: Newsletter & Brand (Left) + 3 Unique Resource Columns (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-neutral-800/80">
-          {/* Brand & Newsletter Column (Unique to PHS) */}
-          <div className="lg:col-span-5 space-y-5 pr-0 lg:pr-6">
-            {/* PHS Brand Identity Lockup */}
-            <div
-              onClick={() => onNavigate('/')}
-              className="inline-flex items-center gap-3 cursor-pointer select-none group"
-            >
-              <div className="w-9 h-9 rounded-sm bg-[#0e6e6a] flex items-center justify-center text-white shadow-xs group-hover:bg-[#0a4f4c] transition-colors">
-                <Wrench className="w-4 h-4 stroke-[2.4]" />
-              </div>
-              <div>
-                <span className="text-xl font-black spec-font tracking-tight text-white block leading-none">
-                  PHS<span className="text-[#0e6e6a]">.</span>
-                </span>
-                <span className="text-[9px] font-bold tracking-widest uppercase text-neutral-400 block mt-1">
-                  PLUMBING & HVAC SOFTWARE
-                </span>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                Weekly Trade Operations Intel
-              </h3>
-              <p className="text-sm text-neutral-400 mt-2 leading-relaxed font-body">
-                Independent software audits, pricing benchmarks, and field dispatch playbooks delivered to US plumbing & HVAC contractors.
-              </p>
-            </div>
-
-            <form onSubmit={handleSubscribe} className="pt-1">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 max-w-md">
-                <div className="relative flex-1">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your contractor email"
-                    required
-                    className="w-full px-4 py-3 bg-[#191f1d] border border-neutral-700/70 rounded-lg text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#0e6e6a] focus:ring-1 focus:ring-[#0e6e6a] transition-all"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-sm font-semibold rounded-lg transition-colors shadow-sm shrink-0"
-                >
-                  <span>Subscribe</span>
-                  <Send className="w-3.5 h-3.5 fill-current" />
+    <footer className="site-footer mt-20 border-t-4 text-[#d5dee4]">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_1.4fr]">
+          <div>
+            <button type="button" onClick={() => onNavigate('/')} className="flex items-center gap-3 text-left">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white"><Wrench className="h-5 w-5" aria-hidden="true" /></span>
+              <span>
+                <span className="block font-serif text-3xl leading-none text-white">PHS</span>
+                <span className="mt-1 block text-xs text-[#9aadb8]">Plumbing & HVAC software</span>
+              </span>
+            </button>
+            <p className="mt-5 max-w-sm text-sm leading-6 text-[#b7c6d0]">
+              Independent software research to help plumbing and HVAC businesses make clearer buying decisions.
+            </p>
+            <form onSubmit={handleSubscribe} className="mt-7 max-w-md rounded-2xl border border-white/10 bg-white/5 p-4">
+              <label htmlFor="footer-email" className="text-sm font-semibold text-white">
+                Weekly research notes
+              </label>
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                <input
+                  id="footer-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Work email"
+                  required
+                  className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white/5 px-3 py-3 text-sm text-white outline-none placeholder:text-slate-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-300/20"
+                />
+                <button type="submit" className="site-footer__button min-h-11 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors">
+                  Subscribe
                 </button>
               </div>
-
               {subscribed && (
-                <div className="mt-3 flex items-center gap-2 text-xs text-emerald-400 font-medium animate-fadeIn">
-                  <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>Welcome! You're subscribed to our weekly trade software audits.</span>
-                </div>
+                <p className="mt-3 flex items-center gap-2 text-sm text-[#b7e0c8]">
+                  <CheckCircle2 className="w-4 h-4" />
+                  Subscribed. You can unsubscribe any time.
+                </p>
               )}
-
-              <p className="text-[11px] text-neutral-500 mt-2.5">
-                Zero vendor bias. No sponsored rankings. Unsubscribe anytime.
-              </p>
+              <p className="mt-3 text-xs leading-5 text-[#8ea0ab]">No sponsored rankings. Unsubscribe any time.</p>
             </form>
           </div>
 
-          {/* 3 Nav Columns: Software Research, Company & Trust, Legal (AdSense Core) */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 lg:gap-8">
-            {/* 1. Software Research (Unique to PHS) */}
-            <div className="space-y-4">
-              <h4 className="text-base font-bold text-white tracking-wide">
-                Software Research
-              </h4>
-              <ul className="space-y-3 text-sm text-neutral-400">
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/software-reviews')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Software Reviews
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/compare')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Head-to-Head Compare
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/best-of')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Best Of Roundups
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/guides')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Operations Playbooks
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/tools')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Software Finder Quiz
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/tools')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    ROI & Cost Calculator
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* 2. Company & Trust (AdSense & EEAT Mandatory) */}
-            <div className="space-y-4">
-              <h4 className="text-base font-bold text-white tracking-wide">
-                Company & Trust
-              </h4>
-              <ul className="space-y-3 text-sm text-neutral-400">
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/about')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Our Story & Mission
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/how-we-test')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Testing Methodology
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/how-we-test')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Editorial Standards
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/how-we-make-money')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    How We Make Money
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/contact')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Contact Editorial Team
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/contact')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Submit Tips & Feedback
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* 3. Legal & Compliance (AdSense Critical) */}
-            <div className="space-y-4">
-              <h4 className="text-base font-bold text-white tracking-wide">
-                Legal & Policy
-              </h4>
-              <ul className="space-y-3 text-sm text-neutral-400">
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/privacy-policy')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Privacy Policy
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/terms-of-service')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Terms of Service
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/privacy-policy')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Cookie Policy
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/how-we-make-money')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Affiliate Disclosure
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('/how-we-test')}
-                    className="hover:text-white transition-colors text-left"
-                  >
-                    Editorial Independence
-                  </button>
-                </li>
-              </ul>
-            </div>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            {groups.map((group) => (
+              <div key={group.title}>
+                <h2 className="text-sm font-semibold text-white">{group.title}</h2>
+                <ul className="mt-4 space-y-3">
+                  {group.links.map(([label, route]) => (
+                    <li key={label}>
+                      <button
+                        type="button"
+                        onClick={() => onNavigate(route)}
+                        className="group inline-flex min-h-7 items-center gap-1 text-left text-sm text-[#b7c6d0] transition-colors hover:text-white"
+                      >
+                        {label}
+                        <ArrowUpRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Bottom Bar: Clean Single Line with PHS Brand & Reader Notice */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
-          <p>© {new Date().getFullYear()} PHS (Plumbing HVAC Software) — Independent Trade Research. All rights reserved.</p>
-          <div className="flex items-center gap-1.5 text-neutral-400 text-[11px]">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#0e6e6a]" />
-            <span>Independent & Evidence-Based</span>
-          </div>
-        </div>
+        <p className="mt-12 border-t border-white/10 pt-6 text-xs text-[#8ea0ab]">
+          © {new Date().getFullYear()} PHS. Reviews are independent. Some links are affiliate links.
+        </p>
       </div>
     </footer>
   );

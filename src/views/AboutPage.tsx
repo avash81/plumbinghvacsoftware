@@ -4,23 +4,23 @@ import { Wrench, ShieldCheck, Mail, MapPin, CheckCircle2, MessageSquare, Send } 
 export const AboutPage: React.FC<{ onNavigate: (route: string) => void }> = ({ onNavigate }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      <div className="space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-xs font-bold uppercase tracking-wider font-display">
+      <div className="page-intro space-y-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0F4C6E]/10 text-[#0F4C6E] text-xs font-bold uppercase tracking-wider font-display">
           <Wrench className="w-4 h-4" />
           <span>About PHS</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#16201f] tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#17242C] tracking-tight leading-tight">
           Built for trade contractors, by trade specialists.
         </h1>
 
-        <p className="text-base md:text-lg text-[#16201f]/80 font-body leading-relaxed">
+        <p className="text-base md:text-lg text-[#17242C]/80 font-body leading-relaxed">
           PHS provides honest, vendor-neutral research for field service software. We help trade businesses find the right tools without the marketing fluff.
         </p>
       </div>
 
-      <div className="bg-white border border-[#dde3e1] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs text-sm text-[#16201f]/85 font-body leading-relaxed">
-        <h2 className="text-2xl font-bold font-display text-[#16201f]">
+      <div className="bg-white border border-[#D3DDE3] rounded-2xl p-6 md:p-8 space-y-4 shadow-xs text-sm text-[#17242C]/85 font-body leading-relaxed">
+        <h2 className="text-2xl font-bold font-display text-[#17242C]">
           Our Mission
         </h2>
         <p>
@@ -32,20 +32,20 @@ export const AboutPage: React.FC<{ onNavigate: (route: string) => void }> = ({ o
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 bg-[#fbfaf8] border border-[#dde3e1] rounded-xl text-center space-y-1">
-          <span className="text-3xl font-black font-display text-[#0e6e6a]">25+</span>
-          <span className="text-xs font-bold block text-[#16201f] font-display">Evaluation Benchmarks</span>
-          <span className="text-[11px] text-[#16201f]/60 block">Tested hands-on per tool</span>
+        <div className="p-5 bg-[#F3F6F8] border border-[#D3DDE3] rounded-xl text-center space-y-1">
+          <span className="text-3xl font-black font-display text-[#0F4C6E]">25+</span>
+          <span className="text-xs font-bold block text-[#17242C] font-display">Evaluation Benchmarks</span>
+          <span className="text-[11px] text-[#17242C]/60 block">Tested hands-on per tool</span>
         </div>
-        <div className="p-5 bg-[#fbfaf8] border border-[#dde3e1] rounded-xl text-center space-y-1">
-          <span className="text-3xl font-black font-display text-[#0e6e6a]">100%</span>
-          <span className="text-xs font-bold block text-[#16201f] font-display">FTC Compliant</span>
-          <span className="text-[11px] text-[#16201f]/60 block">Transparent link disclosures</span>
+        <div className="p-5 bg-[#F3F6F8] border border-[#D3DDE3] rounded-xl text-center space-y-1">
+          <span className="text-3xl font-black font-display text-[#0F4C6E]">100%</span>
+          <span className="text-xs font-bold block text-[#17242C] font-display">FTC Compliant</span>
+          <span className="text-[11px] text-[#17242C]/60 block">Transparent link disclosures</span>
         </div>
-        <div className="p-5 bg-[#fbfaf8] border border-[#dde3e1] rounded-xl text-center space-y-1">
-          <span className="text-3xl font-black font-display text-[#0e6e6a]">Quarterly</span>
-          <span className="text-xs font-bold block text-[#16201f] font-display">Rate Card Audits</span>
-          <span className="text-[11px] text-[#16201f]/60 block">Continuous re-testing</span>
+        <div className="p-5 bg-[#F3F6F8] border border-[#D3DDE3] rounded-xl text-center space-y-1">
+          <span className="text-3xl font-black font-display text-[#0F4C6E]">Quarterly</span>
+          <span className="text-xs font-bold block text-[#17242C] font-display">Rate Card Audits</span>
+          <span className="text-[11px] text-[#17242C]/60 block">Continuous re-testing</span>
         </div>
       </div>
     </div>
@@ -63,62 +63,62 @@ export const ContactPage: React.FC<{ onNavigate: (route: string) => void }> = ({
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      <div className="space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0e6e6a]/10 text-[#0e6e6a] text-xs font-bold uppercase tracking-wider font-display">
+      <div className="page-intro space-y-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0F4C6E]/10 text-[#0F4C6E] text-xs font-bold uppercase tracking-wider font-display">
           <Mail className="w-4 h-4" />
           <span>Contact Our Research Team</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#16201f] tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-[#17242C] tracking-tight leading-tight">
           A real person is on the other side.
         </h1>
 
-        <p className="text-base md:text-lg text-[#16201f]/80 font-body leading-relaxed max-w-2xl">
+        <p className="text-base md:text-lg text-[#17242C]/80 font-body leading-relaxed max-w-2xl">
           Not sure which software option fits your specific situation? Email us — we'll give you a straight answer. No chatbots, no automated runaround.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 pt-4">
-          <div className="flex-1 p-5 bg-white border border-[#dde3e1] rounded-xl space-y-2">
-            <h3 className="text-sm font-bold text-[#16201f] font-display">Direct Email</h3>
-            <p className="text-lg font-black text-[#0e6e6a] font-display">hello@plumbinghvacsoftware.com</p>
-            <p className="text-xs text-[#16201f]/60">We personally read and reply to every message within 2 business days.</p>
+          <div className="flex-1 p-5 bg-white border border-[#D3DDE3] rounded-xl space-y-2">
+            <h3 className="text-sm font-bold text-[#17242C] font-display">Direct Email</h3>
+            <p className="break-all text-lg font-black text-[#0F4C6E] font-display">hello@plumbinghvacsoftware.com</p>
+            <p className="text-xs text-[#17242C]/60">We personally read and reply to every message within 2 business days.</p>
           </div>
-          <div className="flex-1 p-5 bg-white border border-[#dde3e1] rounded-xl space-y-2">
-            <h3 className="text-sm font-bold text-[#16201f] font-display">Office Location</h3>
-            <p className="text-lg font-black text-[#16201f] font-display">Austin, Texas</p>
-            <p className="text-xs text-[#16201f]/60">Researching US trade software since 2024.</p>
+          <div className="flex-1 p-5 bg-white border border-[#D3DDE3] rounded-xl space-y-2">
+            <h3 className="text-sm font-bold text-[#17242C] font-display">Office Location</h3>
+            <p className="text-lg font-black text-[#17242C] font-display">Austin, Texas</p>
+            <p className="text-xs text-[#17242C]/60">Researching US trade software since 2024.</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white border-2 border-[#16201f] rounded-2xl p-6 md:p-8 shadow-xs">
+      <div className="bg-white border-2 border-[#17242C] rounded-2xl p-6 md:p-8 shadow-xs">
         {submitted ? (
           <div className="text-center py-8 space-y-3">
             <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-6 h-6" />
             </div>
-            <h3 className="text-2xl font-bold font-display text-[#16201f]">Message Received.</h3>
-            <p className="text-sm text-[#16201f]/75 max-w-md mx-auto">
+            <h3 className="text-2xl font-bold font-display text-[#17242C]">Message Received.</h3>
+            <p className="text-sm text-[#17242C]/75 max-w-md mx-auto">
               We've got your message. A real member of our editorial team will get back to you personally within 48 hours.
             </p>
             <button
               type="button"
               onClick={() => onNavigate('/')}
-              className="mt-4 px-6 py-2.5 bg-[#16201f] text-white text-xs font-bold rounded-lg uppercase tracking-widest"
+              className="mt-4 px-6 py-2.5 bg-[#17242C] text-white text-xs font-bold rounded-lg uppercase tracking-widest"
             >
               Return to Site
             </button>
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="pb-4 border-b border-[#dde3e1]">
-              <h2 className="text-xl font-bold font-display text-[#16201f]">Send us a Specific Question</h2>
-              <p className="text-xs text-[#16201f]/60 mt-1">Whether you're a contractor with a tip or a business owner needing advice.</p>
+            <div className="pb-4 border-b border-[#D3DDE3]">
+              <h2 className="text-xl font-bold font-display text-[#17242C]">Send us a Specific Question</h2>
+              <p className="text-xs text-[#17242C]/60 mt-1">Whether you're a contractor with a tip or a business owner needing advice.</p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-widest text-[#16201f]/70 mb-1.5 font-display">
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-[#17242C]/70 mb-1.5 font-display">
                     Your Name
                   </label>
                   <input
@@ -126,12 +126,12 @@ export const ContactPage: React.FC<{ onNavigate: (route: string) => void }> = ({
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full p-3 bg-[#fbfaf8] border border-[#dde3e1] rounded-xl text-sm focus:ring-2 focus:ring-[#0e6e6a] focus:outline-none"
+                    className="w-full p-3 bg-[#F3F6F8] border border-[#D3DDE3] rounded-xl text-sm focus:ring-2 focus:ring-[#0F4C6E] focus:outline-none"
                     placeholder="Mike Smith"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-widest text-[#16201f]/70 mb-1.5 font-display">
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-[#17242C]/70 mb-1.5 font-display">
                     Your Business Email
                   </label>
                   <input
@@ -139,20 +139,20 @@ export const ContactPage: React.FC<{ onNavigate: (route: string) => void }> = ({
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full p-3 bg-[#fbfaf8] border border-[#dde3e1] rounded-xl text-sm focus:ring-2 focus:ring-[#0e6e6a] focus:outline-none"
+                    className="w-full p-3 bg-[#F3F6F8] border border-[#D3DDE3] rounded-xl text-sm focus:ring-2 focus:ring-[#0F4C6E] focus:outline-none"
                     placeholder="mike@mikesplumbing.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-[#16201f]/70 mb-1.5 font-display">
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-[#17242C]/70 mb-1.5 font-display">
                   Your Primary Trade / Role
                 </label>
                 <select
                   value={formData.trade}
                   onChange={(e) => setFormData({ ...formData, trade: e.target.value })}
-                  className="w-full p-3 bg-[#fbfaf8] border border-[#dde3e1] rounded-xl text-sm focus:ring-2 focus:ring-[#0e6e6a] focus:outline-none appearance-none"
+                  className="w-full p-3 bg-[#F3F6F8] border border-[#D3DDE3] rounded-xl text-sm focus:ring-2 focus:ring-[#0F4C6E] focus:outline-none appearance-none"
                 >
                   <option value="Plumbing">Plumbing Contractor</option>
                   <option value="HVAC">HVAC Contractor</option>
@@ -163,7 +163,7 @@ export const ContactPage: React.FC<{ onNavigate: (route: string) => void }> = ({
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-[#16201f]/70 mb-1.5 font-display">
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-[#17242C]/70 mb-1.5 font-display">
                   How can we help?
                 </label>
                 <textarea
@@ -171,19 +171,19 @@ export const ContactPage: React.FC<{ onNavigate: (route: string) => void }> = ({
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full p-3 bg-[#fbfaf8] border border-[#dde3e1] rounded-xl text-sm focus:ring-2 focus:ring-[#0e6e6a] focus:outline-none"
+                  className="w-full p-3 bg-[#F3F6F8] border border-[#D3DDE3] rounded-xl text-sm focus:ring-2 focus:ring-[#0F4C6E] focus:outline-none"
                   placeholder="Tell us about your team size and current biggest software headache..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-xs flex items-center justify-center gap-2"
+                className="w-full py-4 bg-[#0F4C6E] hover:bg-[#0B3A54] text-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-xs flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 <span>Send Message to Marcus & Elena</span>
               </button>
-              <p className="text-[10px] text-center text-[#16201f]/40">
+              <p className="text-[10px] text-center text-[#17242C]/40">
                 We respect your privacy. No spam, just human answers.
               </p>
             </form>

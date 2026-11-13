@@ -55,25 +55,25 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
   return (
     <div
       id="software-finder-quiz-container"
-      className="bg-white border border-[#dde3e1] rounded-2xl p-6 md:p-8 shadow-sm my-6"
+      className="bg-white border border-[#D3DDE3] rounded-2xl p-6 md:p-8 shadow-sm my-6"
     >
-      <div className="flex items-center justify-between pb-6 border-b border-[#dde3e1]">
+      <div className="flex items-center justify-between pb-6 border-b border-[#D3DDE3]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#0e6e6a]/10 flex items-center justify-center text-[#0e6e6a]">
+          <div className="w-10 h-10 rounded-xl bg-[#0F4C6E]/10 flex items-center justify-center text-[#0F4C6E]">
             <Calculator className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-xl md:text-2xl font-bold font-display text-[#16201f]">
+            <h2 className="text-xl md:text-2xl font-bold font-display text-[#17242C]">
               FSM Software Matchmaker Quiz
             </h2>
-            <p className="text-xs md:text-sm text-[#16201f]/70 font-body">
+            <p className="text-xs md:text-sm text-[#17242C]/70 font-body">
               Answer 4 questions to find the ideal platform for your trade and team size
             </p>
           </div>
         </div>
 
         {step < 5 && (
-          <span className="text-xs font-bold font-data text-[#0e6e6a] bg-[#0e6e6a]/10 px-3 py-1 rounded-full">
+          <span className="text-xs font-bold font-data text-[#0F4C6E] bg-[#0F4C6E]/10 px-3 py-1 rounded-full">
             Step {step} of 4
           </span>
         )}
@@ -82,8 +82,8 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
       {/* STEP 1: Trade & Team Size */}
       {step === 1 && (
         <div className="py-6 space-y-6">
-          <h3 className="text-base md:text-lg font-semibold text-[#16201f] font-display flex items-center gap-2">
-            <Wrench className="w-5 h-5 text-[#0e6e6a]" /> What is your primary trade specialty?
+          <h3 className="text-base md:text-lg font-semibold text-[#17242C] font-display flex items-center gap-2">
+            <Wrench className="w-5 h-5 text-[#0F4C6E]" /> What is your primary trade specialty?
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
@@ -97,18 +97,18 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
                 onClick={() => setTrade(item.id)}
                 className={`p-3 md:p-4 rounded-xl border text-left transition-all ${
                   trade === item.id
-                    ? 'border-[#0e6e6a] bg-[#0e6e6a]/5 ring-2 ring-[#0e6e6a]'
-                    : 'border-[#dde3e1] hover:border-[#0e6e6a]/50 bg-white'
+                    ? 'border-[#0F4C6E] bg-[#0F4C6E]/5 ring-2 ring-[#0F4C6E]'
+                    : 'border-[#D3DDE3] hover:border-[#0F4C6E]/50 bg-white'
                 }`}
               >
-                <div className="font-semibold text-[#16201f] font-display text-xs md:text-sm">{item.label}</div>
-                <div className="text-[10px] md:text-xs text-[#16201f]/60 mt-1">{item.desc}</div>
+                <div className="font-semibold text-[#17242C] font-display text-xs md:text-sm">{item.label}</div>
+                <div className="text-[10px] md:text-xs text-[#17242C]/60 mt-1">{item.desc}</div>
               </button>
             ))}
           </div>
 
-          <h3 className="text-base md:text-lg font-semibold text-[#16201f] font-display flex items-center gap-2 pt-4">
-            <Users className="w-5 h-5 text-[#0e6e6a]" /> How many technicians work in the field?
+          <h3 className="text-base md:text-lg font-semibold text-[#17242C] font-display flex items-center gap-2 pt-4">
+            <Users className="w-5 h-5 text-[#0F4C6E]" /> How many technicians work in the field?
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
             {[
@@ -123,12 +123,12 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
                 onClick={() => setTeamSize(item.id)}
                 className={`p-3 md:p-3.5 rounded-xl border text-left transition-all ${
                   teamSize === item.id
-                    ? 'border-[#0e6e6a] bg-[#0e6e6a]/5 ring-2 ring-[#0e6e6a]'
-                    : 'border-[#dde3e1] hover:border-[#0e6e6a]/50 bg-white'
+                    ? 'border-[#0F4C6E] bg-[#0F4C6E]/5 ring-2 ring-[#0F4C6E]'
+                    : 'border-[#D3DDE3] hover:border-[#0F4C6E]/50 bg-white'
                 }`}
               >
-                <div className="font-bold text-[#16201f] text-xs md:text-sm">{item.label}</div>
-                <div className="text-[10px] md:text-xs text-[#16201f]/60">{item.sub}</div>
+                <div className="font-bold text-[#17242C] text-xs md:text-sm">{item.label}</div>
+                <div className="text-[10px] md:text-xs text-[#17242C]/60">{item.sub}</div>
               </button>
             ))}
           </div>
@@ -138,7 +138,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
               type="button"
               disabled={!trade || !teamSize}
               onClick={() => setStep(2)}
-              className="px-6 py-2.5 bg-[#0e6e6a] hover:bg-[#0a4f4c] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
+              className="px-6 py-2.5 bg-[#0F4C6E] hover:bg-[#0B3A54] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
             >
               Continue to Step 2 <ArrowRight className="w-4 h-4" />
             </button>
@@ -149,7 +149,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
       {/* STEP 2: Primary Operational Goal / Pain Point */}
       {step === 2 && (
         <div className="py-6 space-y-6">
-          <h3 className="text-base md:text-lg font-semibold text-[#16201f] font-display flex items-center gap-2">
+          <h3 className="text-base md:text-lg font-semibold text-[#17242C] font-display flex items-center gap-2">
             What is your biggest operational bottleneck right now?
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -181,12 +181,12 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
                 onClick={() => setPainPoint(item.id)}
                 className={`p-4 rounded-xl border text-left transition-all ${
                   painPoint === item.id
-                    ? 'border-[#0e6e6a] bg-[#0e6e6a]/5 ring-2 ring-[#0e6e6a]'
-                    : 'border-[#dde3e1] hover:border-[#0e6e6a]/50 bg-white'
+                    ? 'border-[#0F4C6E] bg-[#0F4C6E]/5 ring-2 ring-[#0F4C6E]'
+                    : 'border-[#D3DDE3] hover:border-[#0F4C6E]/50 bg-white'
                 }`}
               >
-                <div className="font-bold text-[#16201f] text-sm font-display">{item.title}</div>
-                <div className="text-xs text-[#16201f]/70 mt-1">{item.desc}</div>
+                <div className="font-bold text-[#17242C] text-sm font-display">{item.title}</div>
+                <div className="text-xs text-[#17242C]/70 mt-1">{item.desc}</div>
               </button>
             ))}
           </div>
@@ -195,7 +195,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="px-4 py-2 text-sm text-[#16201f]/70 hover:text-[#16201f] font-medium"
+              className="px-4 py-2 text-sm text-[#17242C]/70 hover:text-[#17242C] font-medium"
             >
               Back
             </button>
@@ -203,7 +203,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
               type="button"
               disabled={!painPoint}
               onClick={() => setStep(3)}
-              className="px-6 py-2.5 bg-[#0e6e6a] hover:bg-[#0a4f4c] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
+              className="px-6 py-2.5 bg-[#0F4C6E] hover:bg-[#0B3A54] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
             >
               Continue to Step 3 <ArrowRight className="w-4 h-4" />
             </button>
@@ -214,8 +214,8 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
       {/* STEP 3: Accounting Software */}
       {step === 3 && (
         <div className="py-6 space-y-6">
-          <h3 className="text-base md:text-lg font-semibold text-[#16201f] font-display flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#0e6e6a]" /> What accounting system do you currently use?
+          <h3 className="text-base md:text-lg font-semibold text-[#17242C] font-display flex items-center gap-2">
+            <Cpu className="w-5 h-5 text-[#0F4C6E]" /> What accounting system do you currently use?
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
@@ -229,12 +229,12 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
                 onClick={() => setAccounting(item.id)}
                 className={`p-4 rounded-xl border text-left transition-all ${
                   accounting === item.id
-                    ? 'border-[#0e6e6a] bg-[#0e6e6a]/5 ring-2 ring-[#0e6e6a]'
-                    : 'border-[#dde3e1] hover:border-[#0e6e6a]/50 bg-white'
+                    ? 'border-[#0F4C6E] bg-[#0F4C6E]/5 ring-2 ring-[#0F4C6E]'
+                    : 'border-[#D3DDE3] hover:border-[#0F4C6E]/50 bg-white'
                 }`}
               >
-                <div className="font-bold text-[#16201f] text-sm font-display">{item.title}</div>
-                <div className="text-xs text-[#16201f]/70 mt-1">{item.desc}</div>
+                <div className="font-bold text-[#17242C] text-sm font-display">{item.title}</div>
+                <div className="text-xs text-[#17242C]/70 mt-1">{item.desc}</div>
               </button>
             ))}
           </div>
@@ -243,7 +243,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
             <button
               type="button"
               onClick={() => setStep(2)}
-              className="px-4 py-2 text-sm text-[#16201f]/70 hover:text-[#16201f] font-medium"
+              className="px-4 py-2 text-sm text-[#17242C]/70 hover:text-[#17242C] font-medium"
             >
               Back
             </button>
@@ -251,7 +251,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
               type="button"
               disabled={!accounting}
               onClick={() => setStep(4)}
-              className="px-6 py-2.5 bg-[#0e6e6a] hover:bg-[#0a4f4c] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
+              className="px-6 py-2.5 bg-[#0F4C6E] hover:bg-[#0B3A54] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
             >
               Continue to Step 4 <ArrowRight className="w-4 h-4" />
             </button>
@@ -262,8 +262,8 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
       {/* STEP 4: Budget & Pricing Preference */}
       {step === 4 && (
         <div className="py-6 space-y-6">
-          <h3 className="text-base md:text-lg font-semibold text-[#16201f] font-display flex items-center gap-2">
-            <DollarSign className="w-5 h-5 text-[#0e6e6a]" /> What is your monthly software budget target?
+          <h3 className="text-base md:text-lg font-semibold text-[#17242C] font-display flex items-center gap-2">
+            <DollarSign className="w-5 h-5 text-[#0F4C6E]" /> What is your monthly software budget target?
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
@@ -277,12 +277,12 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
                 onClick={() => setBudget(item.id)}
                 className={`p-4 rounded-xl border text-left transition-all ${
                   budget === item.id
-                    ? 'border-[#0e6e6a] bg-[#0e6e6a]/5 ring-2 ring-[#0e6e6a]'
-                    : 'border-[#dde3e1] hover:border-[#0e6e6a]/50 bg-white'
+                    ? 'border-[#0F4C6E] bg-[#0F4C6E]/5 ring-2 ring-[#0F4C6E]'
+                    : 'border-[#D3DDE3] hover:border-[#0F4C6E]/50 bg-white'
                 }`}
               >
-                <div className="font-bold text-[#16201f] text-sm font-display">{item.title}</div>
-                <div className="text-xs text-[#16201f]/70 mt-1">{item.desc}</div>
+                <div className="font-bold text-[#17242C] text-sm font-display">{item.title}</div>
+                <div className="text-xs text-[#17242C]/70 mt-1">{item.desc}</div>
               </button>
             ))}
           </div>
@@ -291,7 +291,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
             <button
               type="button"
               onClick={() => setStep(3)}
-              className="px-4 py-2 text-sm text-[#16201f]/70 hover:text-[#16201f] font-medium"
+              className="px-4 py-2 text-sm text-[#17242C]/70 hover:text-[#17242C] font-medium"
             >
               Back
             </button>
@@ -299,7 +299,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
               type="button"
               disabled={!budget}
               onClick={calculateResult}
-              className="px-6 py-2.5 bg-[#0e6e6a] hover:bg-[#0a4f4c] text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
+              className="px-6 py-2.5 bg-[#0F4C6E] hover:bg-[#0B3A54] text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-sm"
             >
               Calculate Best Matches <ArrowRight className="w-4 h-4" />
             </button>
@@ -310,51 +310,51 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
       {/* STEP 5: RESULTS */}
       {step === 5 && topMatch && (
         <div className="py-6 space-y-6 animate-fadeIn">
-          <div className="bg-[#0e6e6a]/10 border border-[#0e6e6a]/30 rounded-xl p-5 md:p-6">
-            <div className="flex items-center gap-2 text-[#0e6e6a] font-bold text-xs uppercase tracking-wider font-display mb-1">
+          <div className="bg-[#0F4C6E]/10 border border-[#0F4C6E]/30 rounded-xl p-5 md:p-6">
+            <div className="flex items-center gap-2 text-[#0F4C6E] font-bold text-xs uppercase tracking-wider font-display mb-1">
               <CheckCircle2 className="w-4 h-4" /> Recommended Top Choice
             </div>
-            <h3 className="text-2xl font-bold text-[#16201f] font-display">
+            <h3 className="text-2xl font-bold text-[#17242C] font-display">
               {topMatch.name}
             </h3>
-            <p className="text-sm text-[#16201f]/85 mt-2 leading-relaxed font-body">
+            <p className="text-sm text-[#17242C]/85 mt-2 leading-relaxed font-body">
               {matchReason}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Primary Result Box */}
-            <div className="border-2 border-[#0e6e6a] rounded-xl p-5 bg-white shadow-sm flex flex-col justify-between">
+            <div className="border-2 border-[#0F4C6E] rounded-xl p-5 bg-white shadow-sm flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-start">
                   <div>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#0e6e6a] text-white text-[11px] font-bold uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#0F4C6E] text-white text-[11px] font-bold uppercase">
                       #1 Match
                     </span>
-                    <h4 className="text-xl font-bold text-[#16201f] font-display mt-2">
+                    <h4 className="text-xl font-bold text-[#17242C] font-display mt-2">
                       {topMatch.name}
                     </h4>
                   </div>
-                  <span className="text-lg font-bold text-[#0e6e6a] font-data">
+                  <span className="text-lg font-bold text-[#0F4C6E] font-data">
                     {topMatch.ratings.overall.toFixed(1)} / 5.0
                   </span>
                 </div>
-                <p className="text-xs text-[#16201f]/75 mt-2">{topMatch.tagline}</p>
-                <div className="my-3 py-2 px-3 bg-[#fbfaf8] rounded-lg border border-[#dde3e1] text-xs font-medium">
+                <p className="text-xs text-[#17242C]/75 mt-2">{topMatch.tagline}</p>
+                <div className="my-3 py-2 px-3 bg-[#F3F6F8] rounded-lg border border-[#D3DDE3] text-xs font-medium">
                   Starting at: <span className="font-bold font-data text-sm">{topMatch.startingPrice}</span> • Free Trial:{' '}
                   {topMatch.hasFreeTrial ? `${topMatch.freeTrialDays} Days` : 'Demo'}
                 </div>
-                <ul className="space-y-1.5 text-xs text-[#16201f]/85">
+                <ul className="space-y-1.5 text-xs text-[#17242C]/85">
                   {topMatch.pros.slice(0, 3).map((p, i) => (
                     <li key={i} className="flex items-center gap-1.5">
-                      <ShieldCheck className="w-3.5 h-3.5 text-[#0e6e6a] shrink-0" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#0F4C6E] shrink-0" />
                       <span>{p}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-[#dde3e1]">
+              <div className="pt-4 mt-4 border-t border-[#D3DDE3]">
                 <AffiliateCTA
                   productSlug={topMatch.slug}
                   productName={topMatch.name}
@@ -367,26 +367,26 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
 
             {/* Runner-Up Result Box */}
             {runnerUp && (
-              <div className="border border-[#dde3e1] rounded-xl p-5 bg-white shadow-xs flex flex-col justify-between">
+              <div className="border border-[#D3DDE3] rounded-xl p-5 bg-white shadow-xs flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="px-2.5 py-0.5 rounded-full bg-neutral-200 text-[#16201f] text-[11px] font-bold uppercase">
+                      <span className="px-2.5 py-0.5 rounded-full bg-neutral-200 text-[#17242C] text-[11px] font-bold uppercase">
                         Alternative Option
                       </span>
-                      <h4 className="text-xl font-bold text-[#16201f] font-display mt-2">
+                      <h4 className="text-xl font-bold text-[#17242C] font-display mt-2">
                         {runnerUp.name}
                       </h4>
                     </div>
-                    <span className="text-lg font-bold text-[#16201f]/70 font-data">
+                    <span className="text-lg font-bold text-[#17242C]/70 font-data">
                       {runnerUp.ratings.overall.toFixed(1)} / 5.0
                     </span>
                   </div>
-                  <p className="text-xs text-[#16201f]/75 mt-2">{runnerUp.tagline}</p>
-                  <div className="my-3 py-2 px-3 bg-[#fbfaf8] rounded-lg border border-[#dde3e1] text-xs font-medium">
+                  <p className="text-xs text-[#17242C]/75 mt-2">{runnerUp.tagline}</p>
+                  <div className="my-3 py-2 px-3 bg-[#F3F6F8] rounded-lg border border-[#D3DDE3] text-xs font-medium">
                     Starting at: <span className="font-bold font-data text-sm">{runnerUp.startingPrice}</span>
                   </div>
-                  <ul className="space-y-1.5 text-xs text-[#16201f]/85">
+                  <ul className="space-y-1.5 text-xs text-[#17242C]/85">
                     {runnerUp.pros.slice(0, 3).map((p, i) => (
                       <li key={i} className="flex items-center gap-1.5">
                         <ShieldCheck className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
@@ -396,7 +396,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
                   </ul>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-[#dde3e1]">
+                <div className="pt-4 mt-4 border-t border-[#D3DDE3]">
                   <AffiliateCTA
                     productSlug={runnerUp.slug}
                     productName={runnerUp.name}
@@ -412,7 +412,7 @@ export const SoftwareFinderQuiz: React.FC<{ onNavigate?: (route: string) => void
             <button
               type="button"
               onClick={resetQuiz}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0e6e6a] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0F4C6E] hover:underline"
             >
               <RotateCcw className="w-3.5 h-3.5" /> Retake quiz with different parameters
             </button>

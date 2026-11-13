@@ -21,7 +21,10 @@ interface SearchPageProps {
 }
 
 export const SearchPage: React.FC<SearchPageProps> = ({ onNavigate, initialQuery = '' }) => {
-  const [query, setQuery] = useState(initialQuery);
+  const [query, setQuery] = useState(() => {
+    if (initialQuery) return initialQuery;
+    return new URLSearchParams(window.location.search).get('q') || '';
+  });
 
   const results = useMemo(() => {
     if (!query.trim() || query.length < 2) return [];
@@ -63,18 +66,18 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onNavigate, initialQuery
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8 min-h-[60vh]">
-      <div className="space-y-4">
-        <h1 className="text-3xl font-black font-display text-[#16201f]">
+      <div className="page-intro space-y-4">
+        <h1 className="text-3xl font-black font-display text-[#17242C]">
           Search PHS Resources
         </h1>
         <div className="relative">
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#16201f]/40" />
+          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#17242C]/40" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search software reviews, operations guides, or comparisons..."
-            className="w-full pl-12 pr-12 py-4 bg-white border border-[#dde3e1] rounded-2xl focus:border-[#0e6e6a] focus:ring-2 focus:ring-[#0e6e6a]/10 outline-none font-body text-lg shadow-sm"
+            className="w-full pl-12 pr-12 py-4 bg-white border border-[#D3DDE3] rounded-2xl focus:border-[#0F4C6E] focus:ring-2 focus:ring-[#0F4C6E]/10 outline-none font-body text-lg shadow-sm"
             autoFocus
           />
           {query && (
@@ -82,7 +85,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onNavigate, initialQuery
               onClick={() => setQuery('')}
               className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-neutral-100 rounded-full transition-colors"
             >
-              <X className="w-5 h-5 text-[#16201f]/40" />
+              <X className="w-5 h-5 text-[#17242C]/40" />
             </button>
           )}
         </div>
@@ -91,7 +94,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onNavigate, initialQuery
       <div className="space-y-4">
         {query.length >= 2 ? (
           <>
-            <p className="text-sm font-bold text-[#16201f]/50 uppercase tracking-widest">
+            <p className="text-sm font-bold text-[#17242C]/50 uppercase tracking-widest">
               Found {results.length} results for "{query}"
             </p>
 
@@ -100,32 +103,37 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onNavigate, initialQuery
                 results.map((res, i) => {
                   const Icon = res.icon;
                   return (
-                    <div
+                    <a
                       key={i}
-                      onClick={() => onNavigate(res.route)}
-                      className="p-4 bg-white border border-[#dde3e1] hover:border-[#0e6e6a] rounded-xl cursor-pointer transition-all flex items-center justify-between group"
+                      href={res.route}
+                      onClick={(event) => {
+                        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                        event.preventDefault();
+                        onNavigate(res.route);
+                      }}
+                      className="p-4 bg-white border border-[#D3DDE3] hover:border-[#0F4C6E] rounded-xl transition-all flex items-center justify-between group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F4C6E]"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-[#0e6e6a]/5 text-[#0e6e6a] flex items-center justify-center shrink-0 group-hover:bg-[#0e6e6a] group-hover:text-white transition-colors">
+                        <div className="w-10 h-10 rounded-lg bg-[#0F4C6E]/5 text-[#0F4C6E] flex items-center justify-center shrink-0 group-hover:bg-[#0F4C6E] group-hover:text-white transition-colors">
                           <Icon className="w-5 h-5" />
                         </div>
                         <div>
-                          <h3 className="font-bold text-[#16201f] group-hover:text-[#0e6e6a] transition-colors font-display">
+                          <h3 className="font-bold text-[#17242C] group-hover:text-[#0F4C6E] transition-colors font-display">
                             {res.title}
                           </h3>
-                          <p className="text-xs text-[#16201f]/60 mt-0.5 line-clamp-1">
+                          <p className="text-xs text-[#17242C]/60 mt-0.5 line-clamp-1">
                             {res.subtitle}
                           </p>
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-neutral-300 group-hover:text-[#0e6e6a] group-hover:translate-x-1 transition-all" />
-                    </div>
+                      <ArrowRight className="w-4 h-4 text-neutral-300 group-hover:text-[#0F4C6E] group-hover:translate-x-1 transition-all" />
+                    </a>
                   );
                 })
               ) : (
                 <div className="py-12 text-center space-y-2">
-                  <p className="text-[#16201f]/60 font-body">No matching guides or reviews found.</p>
-                  <p className="text-xs text-[#16201f]/40">Try searching for keywords like "Jobber", "Pricing", or "HVAC".</p>
+                  <p className="text-[#17242C]/60 font-body">No matching guides or reviews found.</p>
+                  <p className="text-xs text-[#17242C]/40">Try searching for keywords like "Jobber", "Pricing", or "HVAC".</p>
                 </div>
               )}
             </div>
@@ -135,7 +143,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onNavigate, initialQuery
             <div className="w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center mx-auto text-neutral-300">
               <SearchIcon className="w-8 h-8" />
             </div>
-            <p className="text-[#16201f]/60 font-body text-sm">
+            <p className="text-[#17242C]/60 font-body text-sm">
               Type at least 2 characters to search across our independent database.
             </p>
           </div>
