@@ -40,13 +40,13 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
 
     // Size filter match
     let matchesSize = true;
-    if (sizeFilter === 'solo') matchesSize = p.targetTeamSize.includes('1') || p.slug === 'test-1';
-    if (sizeFilter === 'small') matchesSize = p.targetTeamSize.includes('5') || p.slug === 'test-1';
-    if (sizeFilter === 'large') matchesSize = p.targetTeamSize.includes('25') || p.slug === 'test-2';
+    if (sizeFilter === 'solo') matchesSize = p.targetTeamSize.includes('1');
+    if (sizeFilter === 'small') matchesSize = p.targetTeamSize.includes('5');
+    if (sizeFilter === 'large') matchesSize = p.targetTeamSize.includes('25');
 
     // Pricing filter
     let matchesPricing = true;
-    if (pricingFilter === 'flat') matchesPricing = p.priceModel.toLowerCase().includes('flat') || p.slug === 'test-2';
+    if (pricingFilter === 'flat') matchesPricing = p.priceModel.toLowerCase().includes('flat');
     if (pricingFilter === 'under100') matchesPricing = p.startingPrice.includes('49') || p.startingPrice.includes('99');
 
     // Trade filter
@@ -97,6 +97,15 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
+      {PRODUCT_LIST.length === 0 ? (
+        <div className="rounded-2xl border border-[#D3DDE3] bg-white px-5 py-10 text-center">
+          <h2 className="text-xl font-semibold text-[#17242C]">No software reviews published yet</h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#17242C]/75">
+            We removed the example listings. Reviews will be added after the software has been researched and verified.
+          </p>
+        </div>
+      ) : (
+      <>
       {/* Search & Filter Bar */}
       <div className="bg-white border border-[#D3DDE3] rounded-2xl p-4 md:p-6 shadow-xs space-y-4">
         {/* Quick Trade Filter Pills */}
@@ -300,6 +309,8 @@ export const ReviewHubPage: React.FC<ReviewHubPageProps> = ({ onNavigate }) => {
             <ProductCard key={product.slug} product={product} onNavigate={onNavigate} />
           ))}
         </div>
+      )}
+      </>
       )}
     </div>
   );

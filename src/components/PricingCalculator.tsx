@@ -1,18 +1,17 @@
 import React, { useState, useId } from 'react';
 import { Calculator, TrendingUp, DollarSign, Clock, CheckCircle, ArrowRight } from 'lucide-react';
-import { PRODUCTS } from '../lib/products';
 
 export const PricingCalculator: React.FC = () => {
   const [techCount, setTechCount] = useState<number>(4);
   const [hourlyRate, setHourlyRate] = useState<number>(125);
   const [monthlyInvoices, setMonthlyInvoices] = useState<number>(60);
-  const [selectedSoftware, setSelectedSoftware] = useState<string>('test-1');
+  const [monthlySoftwareCost, setMonthlySoftwareCost] = useState<number>(99);
 
   // Input element IDs for accessibility
   const techCountId = useId();
   const hourlyRateId = useId();
   const monthlyInvoicesId = useId();
-  const softwareSelectId = useId();
+  const softwareCostId = useId();
 
   // Calculations
   // Avg hours saved per tech per week on routing & dispatch = 1.5 hrs
@@ -21,17 +20,9 @@ export const PricingCalculator: React.FC = () => {
   const monthlyHoursSaved = weeklyHoursSaved * 4.33;
   const monthlyValueRecovered = Math.round(monthlyHoursSaved * (hourlyRate * 0.65)); // 65% billable value ratio
 
-  // Estimated monthly software cost
-  let estimatedSoftwareCost = 49;
-  if (selectedSoftware === 'test-1') {
-    estimatedSoftwareCost = techCount <= 1 ? 49 : techCount <= 5 ? 99 : 199;
-  } else if (selectedSoftware === 'test-2') {
-    estimatedSoftwareCost = techCount <= 5 ? 99 : techCount <= 12 ? 189 : 299;
-  }
-
-  const netMonthlyGain = monthlyValueRecovered - estimatedSoftwareCost;
+  const netMonthlyGain = monthlyValueRecovered - monthlySoftwareCost;
   const annualNetROI = netMonthlyGain * 12;
-  const roiMultiplier = Math.max(1, Math.round(monthlyValueRecovered / Math.max(1, estimatedSoftwareCost)));
+  const roiMultiplier = Math.max(1, Math.round(monthlyValueRecovered / Math.max(1, monthlySoftwareCost)));
 
   return (
     <div
@@ -55,95 +46,86 @@ export const PricingCalculator: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 pt-6">
         {/* Left Inputs Column */}
         <div className="lg:col-span-6 space-y-5">
-          {/* Tech Count Slider */}
+          {/* Technician count */}
           <div>
-            <div className="flex justify-between items-center mb-1">
+            <div className="flex items-center justify-between gap-4">
               <label htmlFor={techCountId} className="text-xs md:text-sm font-semibold text-[#17242C] font-display">
                 Field Technicians in Fleet:
               </label>
-              <span className="font-bold font-data text-[#0F4C6E] text-sm md:text-base px-2 py-0.5 bg-[#0F4C6E]/10 rounded">
-                {techCount} {techCount === 1 ? 'Tech' : 'Techs'}
-              </span>
-            </div>
-            <input
-              id={techCountId}
-              type="range"
-              min="1"
-              max="25"
-              value={techCount}
-              onChange={(e) => setTechCount(Number(e.target.value))}
-              className="w-full h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-[#0F4C6E]"
-            />
-            <div className="flex justify-between text-[10px] md:text-[11px] text-[#17242C]/50 mt-1">
-              <span>1 (Solo)</span>
-              <span>10 Techs</span>
-              <span>25+ Fleets</span>
+              <div className="flex items-center gap-2">
+                <input
+                  id={techCountId}
+                  type="number"
+                  min="1"
+                  max="25"
+                  step="1"
+                  value={techCount}
+                  onChange={(e) => setTechCount(Number(e.target.value) || 0)}
+                  className="w-20 rounded-lg border border-[#D3DDE3] bg-[#F3F6F8] px-3 py-2 text-right text-sm font-bold font-data text-[#0F4C6E] focus:ring-2 focus:ring-[#0F4C6E]"
+                />
+                <span className="text-xs text-[#17242C]/60">{techCount === 1 ? 'Tech' : 'Techs'}</span>
+              </div>
             </div>
           </div>
 
-          {/* Hourly Billable Rate */}
+          {/* Hourly billable rate */}
           <div>
-            <div className="flex justify-between items-center mb-1">
+            <div className="flex items-center justify-between gap-4">
               <label htmlFor={hourlyRateId} className="text-xs md:text-sm font-semibold text-[#17242C] font-display">
                 Average Hourly Billable Rate ($):
               </label>
-              <span className="font-bold font-data text-[#17242C] text-sm md:text-base">
-                ${hourlyRate}/hr
-              </span>
-            </div>
-            <input
-              id={hourlyRateId}
-              type="range"
-              min="65"
-              max="250"
-              step="5"
-              value={hourlyRate}
-              onChange={(e) => setHourlyRate(Number(e.target.value))}
-              className="w-full h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-[#0F4C6E]"
-            />
-            <div className="flex justify-between text-[10px] md:text-[11px] text-[#17242C]/50 mt-1">
-              <span>$65/hr</span>
-              <span>$150/hr</span>
-              <span>$250/hr</span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-[#17242C]/60">$</span>
+                <input
+                  id={hourlyRateId}
+                  type="number"
+                  min="65"
+                  max="250"
+                  step="5"
+                  value={hourlyRate}
+                  onChange={(e) => setHourlyRate(Number(e.target.value) || 0)}
+                  className="w-24 rounded-lg border border-[#D3DDE3] bg-[#F3F6F8] px-3 py-2 text-right text-sm font-bold font-data text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
+                />
+                <span className="text-xs text-[#17242C]/60">/hr</span>
+              </div>
             </div>
           </div>
 
-          {/* Monthly Completed Invoices */}
+          {/* Monthly completed invoices */}
           <div>
-            <div className="flex justify-between items-center mb-1">
+            <div className="flex items-center justify-between gap-4">
               <label htmlFor={monthlyInvoicesId} className="text-xs md:text-sm font-semibold text-[#17242C] font-display">
                 Monthly Completed Invoices:
               </label>
-              <span className="font-bold font-data text-[#17242C] text-sm md:text-base">
-                {monthlyInvoices} jobs/mo
-              </span>
+              <div className="flex items-center gap-2">
+                <input
+                  id={monthlyInvoicesId}
+                  type="number"
+                  min="10"
+                  max="300"
+                  step="5"
+                  value={monthlyInvoices}
+                  onChange={(e) => setMonthlyInvoices(Number(e.target.value) || 0)}
+                  className="w-24 rounded-lg border border-[#D3DDE3] bg-[#F3F6F8] px-3 py-2 text-right text-sm font-bold font-data text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
+                />
+                <span className="text-xs text-[#17242C]/60">jobs/mo</span>
+              </div>
             </div>
-            <input
-              id={monthlyInvoicesId}
-              type="range"
-              min="10"
-              max="300"
-              step="5"
-              value={monthlyInvoices}
-              onChange={(e) => setMonthlyInvoices(Number(e.target.value))}
-              className="w-full h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-[#0F4C6E]"
-            />
           </div>
 
           {/* Software Preset Selector */}
           <div className="pt-2">
-            <label htmlFor={softwareSelectId} className="block text-[10px] font-bold uppercase tracking-wider text-[#17242C]/60 font-display mb-1.5">
-              Select Software to Compare Cost:
+            <label htmlFor={softwareCostId} className="block text-[10px] font-bold uppercase tracking-wider text-[#17242C]/60 font-display mb-1.5">
+              Estimated Monthly Software Cost:
             </label>
-            <select
-              id={softwareSelectId}
-              value={selectedSoftware}
-              onChange={(e) => setSelectedSoftware(e.target.value)}
+            <input
+              id={softwareCostId}
+              type="number"
+              min="0"
+              value={monthlySoftwareCost}
+              onChange={(e) => setMonthlySoftwareCost(Math.max(0, Number(e.target.value) || 0))}
               className="w-full px-3 py-2.5 bg-[#F3F6F8] border border-[#D3DDE3] rounded-lg text-xs md:text-sm font-medium text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
-            >
-              <option value="test-1">Test Software 1 (Agile / Tiered $49–$99)</option>
-              <option value="test-2">Test Software 2 (Fleet / Commercial $99–$299)</option>
-            </select>
+            />
           </div>
         </div>
 
@@ -173,7 +155,7 @@ export const PricingCalculator: React.FC = () => {
               <div className="flex justify-between py-1 border-b border-[#D3DDE3]/40">
                 <span className="text-[#17242C]/70">Est. Software Subscription:</span>
                 <span className="font-data font-bold text-rose-700">
-                  -${estimatedSoftwareCost.toLocaleString()}/mo
+                  -${monthlySoftwareCost.toLocaleString()}/mo
                 </span>
               </div>
               <div className="flex justify-between py-1 border-b border-[#D3DDE3]/40">

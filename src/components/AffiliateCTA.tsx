@@ -20,7 +20,7 @@ export const AffiliateCTA: React.FC<AffiliateCTAProps> = ({
 }) => {
   const config = getAffiliateLink(productSlug);
   const buttonText = label || (config.isAffiliate ? `Visit ${productName}` : `Visit ${productName}`);
-  const isPlaceholderLink = config.targetUrl.startsWith('https://example.com/');
+  const isUnavailableLink = config.targetUrl === '#';
 
   const variantStyles =
     variant === 'secondary'
@@ -54,8 +54,8 @@ export const AffiliateCTA: React.FC<AffiliateCTAProps> = ({
 
   return (
     <div className={`inline-flex flex-col gap-1.5 ${className}`}>
-      {isPlaceholderLink ? (
-        <span className="text-xs text-muted">Sample listing. Vendor link unavailable.</span>
+      {isUnavailableLink ? (
+        <span className="text-xs text-muted">Vendor link unavailable.</span>
       ) : (
         <a
           id={`affiliate-cta-${productSlug}`}

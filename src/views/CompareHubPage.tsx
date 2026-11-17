@@ -22,11 +22,11 @@ interface CompareHubPageProps {
 }
 
 export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) => {
-  const [selectedProductA, setSelectedProductA] = useState('test-1');
-  const [selectedProductB, setSelectedProductB] = useState('test-2');
+  const [selectedProductA, setSelectedProductA] = useState(PRODUCT_LIST[0]?.slug ?? '');
+  const [selectedProductB, setSelectedProductB] = useState(PRODUCT_LIST[1]?.slug ?? '');
 
-  const pA = PRODUCTS[selectedProductA] || PRODUCTS['test-1'];
-  const pB = PRODUCTS[selectedProductB] || PRODUCTS['test-2'];
+  const pA = PRODUCTS[selectedProductA];
+  const pB = PRODUCTS[selectedProductB];
 
   // Check if there is a pre-written dedicated comparison
   const directSlug1 = `${selectedProductA}-vs-${selectedProductB}`;
@@ -58,7 +58,7 @@ export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) =>
           Compare Field Service Software
         </h1>
         <p className="text-sm md:text-base text-[#17242C]/75 font-body leading-relaxed">
-          Side-by-side technical and financial breakdowns. Select any two platforms to compare features, pricing models, mobile offline performance, and real trade advantages.
+          Side-by-side technical and financial breakdowns of plumbing and HVAC field service software.
         </p>
 
         {/* FTC Disclosure */}
@@ -69,6 +69,15 @@ export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) =>
         </div>
       </div>
 
+      {PRODUCT_LIST.length < 2 ? (
+        <div className="rounded-2xl border border-[#D3DDE3] bg-white px-5 py-10 text-center">
+          <h2 className="text-xl font-semibold text-[#17242C]">Comparisons are coming soon</h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#17242C]/75">
+            We removed the example matchups. A comparison tool will be available when at least two verified reviews are published.
+          </p>
+        </div>
+      ) : (
+      <>
       {/* Interactive 2-Tool Comparison Selector */}
       <div className="bg-white border border-[#D3DDE3] rounded-2xl p-6 md:p-8 shadow-xs space-y-6">
         <div className="flex items-center gap-2 pb-4 border-b border-[#D3DDE3]">
@@ -223,6 +232,8 @@ export const CompareHubPage: React.FC<CompareHubPageProps> = ({ onNavigate }) =>
           })}
         </div>
       </section>
+      </>
+      )}
     </div>
   );
 };

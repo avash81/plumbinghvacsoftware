@@ -12,7 +12,7 @@
  */
 
 import React from 'react';
-import { ArrowRight, Award, ShieldCheck, CheckCircle, ChevronRight } from 'lucide-react';
+import { ArrowRight, Award, ChevronRight } from 'lucide-react';
 import { BEST_OF_LIST } from '../lib/best-of';
 import { PRODUCTS } from '../lib/products';
 
@@ -56,6 +56,14 @@ export const BestOfHubPage: React.FC<BestOfHubPageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
+      {BEST_OF_LIST.length === 0 ? (
+        <div className="rounded-2xl border border-[#D3DDE3] bg-white px-5 py-10 text-center">
+          <h2 className="text-xl font-semibold text-[#17242C]">Roundups are coming soon</h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-[#17242C]/75">
+            We removed the example roundup. Ranked recommendations will be published after the underlying reviews are verified.
+          </p>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {BEST_OF_LIST.map((article) => (
           <a
@@ -75,7 +83,6 @@ export const BestOfHubPage: React.FC<BestOfHubPageProps> = ({ onNavigate }) => {
                 </span>
                 <span className="text-xs text-[#17242C]/50 font-data">{article.readTime}</span>
               </div>
-
               <h2 className="text-xl font-bold font-display text-[#17242C] group-hover:text-[#0F4C6E] transition-colors leading-snug">
                 {article.title}
               </h2>
@@ -111,6 +118,7 @@ export const BestOfHubPage: React.FC<BestOfHubPageProps> = ({ onNavigate }) => {
           </a>
         ))}
       </div>
+      )}
     </div>
   );
 };

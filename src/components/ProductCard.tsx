@@ -32,7 +32,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </span>
           <div className="min-w-0">
             {badge && <p className="mb-1 text-xs font-semibold text-primary">{badge}</p>}
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">Sample listing</p>
             <h3 className="truncate font-serif text-2xl text-ink">
               <button
                 type="button"
@@ -83,7 +82,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
           className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
         >
-          Read sample review <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          Read review <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </button>
         <AffiliateCTA
           productSlug={product.slug}

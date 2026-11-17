@@ -2,23 +2,15 @@ import React, { useState } from 'react';
 import {
   ArrowRight,
   BadgeCheck,
-  BookOpen,
   CalendarDays,
   CircleDollarSign,
   ClipboardList,
-  GitCompareArrows,
   Layers3,
   ReceiptText,
   Search,
-  Sparkles,
   Truck,
   Wrench,
 } from 'lucide-react';
-import { PRODUCT_LIST } from '../lib/products';
-import { COMPARISON_LIST } from '../lib/comparisons';
-import { BEST_OF_LIST } from '../lib/best-of';
-import { GUIDE_LIST } from '../lib/guides';
-import { ProductCard } from '../components/ProductCard';
 import { FAQAccordion } from '../components/FAQAccordion';
 
 interface HomePageProps {
@@ -38,7 +30,7 @@ const faqs = [
   {
     question: 'How do I find the right software for my needs?',
     answer:
-      'Start with technician headcount and the work you actually sell. Small residential crews usually need fast quoting and invoicing. Larger fleets need inventory, dispatch, and job costing. The finder quiz on the Tools page asks four questions and returns a match from the catalog.',
+      'Start with technician headcount and the work you actually sell. Small residential crews usually need fast quoting and invoicing. Larger fleets need inventory, dispatch, and job costing. Our software finder will provide recommendations after verified reviews are published.',
   },
   {
     question: 'Are the reviews trustworthy?',
@@ -48,17 +40,17 @@ const faqs = [
   {
     question: 'How do I write a review for software I have used?',
     answer:
-      'PHS is not currently collecting user-submitted reviews. The contact form is a visual demo and does not send messages yet.',
+      'PHS is not currently collecting user-submitted reviews. Use the contact page to get in touch with the editorial team.',
   },
   {
     question: 'Can I compare more than one product?',
     answer:
-      'Yes. Open Compare, pick two products, and read the feature table. Published matchups also explain which product fits a small crew, plumbing work, or HVAC work.',
+      'Comparisons will be published after we have verified product reviews to compare.',
   },
   {
     question: 'How do I claim a software listing?',
     answer:
-      'The catalog currently contains sample listings. Vendor submissions are not enabled yet.',
+      'There are no published software listings yet. Vendor submissions are not enabled.',
   },
   {
     question: 'Is the site free?',
@@ -78,11 +70,6 @@ const faqs = [
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const comparison = COMPARISON_LIST[0];
-  const roundup = BEST_OF_LIST[0];
-  const guide = GUIDE_LIST[0];
-  const previewProducts = PRODUCT_LIST.slice(0, 2);
-
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -105,7 +92,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             Find the right software for your next service call.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
-            Compare plumbing and HVAC field software with clear editorial scores, pricing examples, and practical guidance for your team.
+            Find independent research and practical guidance for plumbing and HVAC software decisions.
           </p>
 
           <div className="market-hero__actions mt-8 flex max-w-3xl flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
@@ -130,7 +117,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted sm:text-sm">
-            <span>{PRODUCT_LIST.length} sample catalog listings</span>
+            <span>Independent software research for the trades</span>
             <button type="button" onClick={() => onNavigate('/how-we-test')} className="underline decoration-line underline-offset-4 hover:text-primary">
               How we evaluate software
             </button>
@@ -139,48 +126,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             </button>
           </div>
 
-          <div className="market-preview-card relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-t-2xl border border-line bg-white text-left shadow-2xl sm:mt-16">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line px-4 py-4 sm:px-7">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-primary"><Layers3 className="h-5 w-5" aria-hidden="true" /></span>
-                <div>
-                  <p className="text-xs font-semibold text-primary">PHS SOFTWARE INDEX</p>
-                  <p className="mt-0.5 text-base font-semibold text-ink">A clearer shortlist for your shop</p>
-                </div>
-              </div>
-              <span className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-semibold text-orange-800">Sample catalog</span>
-            </div>
-            <div className="divide-y divide-line">
-              {previewProducts.map((product) => (
-                <button
-                  key={product.slug}
-                  type="button"
-                  onClick={() => onNavigate(`/software-reviews/${product.slug}`)}
-                  className="group flex w-full items-center gap-4 px-4 py-4 text-left transition-colors hover:bg-neutral-50 sm:px-7"
-                >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-primary"><Layers3 className="h-5 w-5" aria-hidden="true" /></span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-semibold text-ink group-hover:text-primary">{product.name}</span>
-                    <span className="mt-1 block truncate text-sm text-muted">{product.bestFor}</span>
-                  </span>
-                  <span className="hidden text-right sm:block">
-                    <span className="block font-semibold text-ink">{product.startingPrice}</span>
-                    <span className="text-xs text-muted">sample price</span>
-                  </span>
-                  <span className="ml-1 hidden border-l border-line pl-4 text-right sm:block">
-                    <span className="block text-lg font-semibold tabular-nums text-primary">{product.ratings.overall.toFixed(1)}</span>
-                    <span className="text-xs text-muted">editorial</span>
-                  </span>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-1 group-hover:text-primary" aria-hidden="true" />
-                </button>
-              ))}
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-3 bg-[#f7f7f8] px-4 py-3 text-xs text-muted sm:px-7">
-              <span>Scores are editorial examples, not user ratings.</span>
-              <button type="button" onClick={() => onNavigate('/software-reviews')} className="inline-flex min-h-9 items-center gap-2 font-semibold text-primary hover:text-primary-dark">
-                Browse all listings <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </button>
-            </div>
+          <div className="mx-auto mt-12 max-w-3xl rounded-2xl border border-line bg-white p-6 text-center shadow-lg sm:mt-16 sm:p-8">
+            <h2 className="font-serif text-2xl text-ink sm:text-3xl">Reviews are in progress</h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-muted">
+              We’ve removed the example listings. Product reviews and comparisons will appear here once they’re researched and verified.
+            </p>
+            <button type="button" onClick={() => onNavigate('/how-we-test')} className="mt-5 inline-flex min-h-10 items-center gap-2 font-semibold text-primary hover:text-primary-dark">
+              How we evaluate software <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </section>
@@ -197,24 +150,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <ArrowRight className="ml-auto h-4 w-4 text-muted" aria-hidden="true" />
           </button>
         ))}
-      </section>
-
-      <section className="mt-16" aria-labelledby="catalog-heading">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-primary">THE CATALOG</p>
-            <h2 id="catalog-heading" className="market-section-heading mt-2 text-3xl font-semibold sm:text-4xl">Software for the work you do</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">Start with the workflows that matter to your shop. These sample listings demonstrate the directory and are not live vendor reviews.</p>
-          </div>
-          <button type="button" onClick={() => onNavigate('/software-reviews')} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-line bg-white px-4 text-sm font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-slate-50">
-            All reviews <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </button>
-        </div>
-        <div className="grid gap-4 lg:grid-cols-2">
-          {PRODUCT_LIST.map((product) => (
-            <ProductCard key={product.slug} product={product} onNavigate={onNavigate} />
-          ))}
-        </div>
       </section>
 
       <section className="mt-16" aria-labelledby="browse-heading">
@@ -236,40 +171,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="mt-16 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]" aria-label="Research and tools">
-        {comparison && (
-          <button type="button" onClick={() => onNavigate(`/compare/${comparison.slug}`)} className="market-resource-link rounded-2xl bg-[#1b1b1f] p-6 text-left text-white sm:p-8">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-orange-300"><GitCompareArrows className="h-5 w-5" aria-hidden="true" /></span>
-            <span className="mt-6 block text-sm font-semibold text-orange-200">HEAD-TO-HEAD</span>
-            <span className="mt-2 block font-serif text-2xl sm:text-3xl">{comparison.title}</span>
-            <span className="mt-3 block max-w-xl text-sm leading-6 text-slate-200">{comparison.subtitle}</span>
-            <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold">Read the comparison <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
-          </button>
-        )}
-        <div className="grid gap-5">
-          {roundup && (
-            <button type="button" onClick={() => onNavigate(`/best-of/${roundup.slug}`)} className="market-resource-link flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 text-left sm:p-7">
-              <span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><Sparkles className="h-5 w-5" aria-hidden="true" /></span>
-                <span className="mt-4 block text-sm font-semibold text-primary">ROUNDUPS · {roundup.readTime}</span>
-                <span className="mt-2 block font-serif text-2xl text-ink">{roundup.title}</span>
-                <span className="mt-2 block text-sm leading-6 text-muted">{roundup.subtitle}</span>
-              </span>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Explore the roundup <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
-            </button>
-          )}
-          {guide && (
-            <button type="button" onClick={() => onNavigate(`/guides/${guide.category}/${guide.slug}`)} className="market-resource-link flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 text-left sm:p-7">
-              <span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-primary"><BookOpen className="h-5 w-5" aria-hidden="true" /></span>
-                <span className="mt-4 block text-sm font-semibold text-primary">FIELD GUIDE · {guide.readTime}</span>
-                <span className="mt-2 block font-serif text-2xl text-ink">{guide.title}</span>
-                <span className="mt-2 block text-sm leading-6 text-muted">{guide.intro}</span>
-              </span>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Read the guide <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
-            </button>
-          )}
-        </div>
+      <section className="mt-16 grid gap-5 sm:grid-cols-2" aria-label="Research and tools">
+        <button type="button" onClick={() => onNavigate('/tools')} className="market-resource-link rounded-2xl border border-line bg-white p-6 text-left">
+          <span className="block text-sm font-semibold text-primary">FREE TOOLS</span>
+          <span className="mt-2 block font-serif text-2xl text-ink">Plan your software budget</span>
+          <span className="mt-3 block text-sm leading-6 text-muted">Estimate the value of recovered technician hours against your monthly software cost.</span>
+        </button>
+        <button type="button" onClick={() => onNavigate('/how-we-test')} className="market-resource-link rounded-2xl border border-line bg-white p-6 text-left">
+          <span className="block text-sm font-semibold text-primary">OUR PROCESS</span>
+          <span className="mt-2 block font-serif text-2xl text-ink">How we evaluate software</span>
+          <span className="mt-3 block text-sm leading-6 text-muted">See the research standards we use for plumbing and HVAC software reviews.</span>
+        </button>
       </section>
 
       <section className="mt-16 rounded-2xl border border-line bg-white p-5 sm:p-8">
