@@ -2,10 +2,10 @@ import React, { useState, useId } from 'react';
 import { Calculator, TrendingUp, DollarSign, Clock, CheckCircle, ArrowRight } from 'lucide-react';
 
 export const PricingCalculator: React.FC = () => {
-  const [techCount, setTechCount] = useState<number>(4);
-  const [hourlyRate, setHourlyRate] = useState<number>(125);
-  const [monthlyInvoices, setMonthlyInvoices] = useState<number>(60);
-  const [monthlySoftwareCost, setMonthlySoftwareCost] = useState<number>(99);
+  const [techCount, setTechCount] = useState('');
+  const [hourlyRate, setHourlyRate] = useState('');
+  const [monthlyInvoices, setMonthlyInvoices] = useState('');
+  const [monthlySoftwareCost, setMonthlySoftwareCost] = useState('');
 
   // Input element IDs for accessibility
   const techCountId = useId();
@@ -13,16 +13,34 @@ export const PricingCalculator: React.FC = () => {
   const monthlyInvoicesId = useId();
   const softwareCostId = useId();
 
-  // Calculations
-  // Avg hours saved per tech per week on routing & dispatch = 1.5 hrs
-  // Avg hours saved per week on office invoicing = 3 hrs
-  const weeklyHoursSaved = techCount * 1.5 + 3;
-  const monthlyHoursSaved = weeklyHoursSaved * 4.33;
-  const monthlyValueRecovered = Math.round(monthlyHoursSaved * (hourlyRate * 0.65)); // 65% billable value ratio
+  const hasAllInputs = [techCount, hourlyRate, monthlyInvoices, monthlySoftwareCost]
+    .every((value) => value !== '');
+  const techCountValue = Number(techCount);
+  const hourlyRateValue = Number(hourlyRate);
+  const monthlyInvoicesValue = Number(monthlyInvoices);
+  const monthlySoftwareCostValue = Number(monthlySoftwareCost);
+  const inputsAreValid =
+    hasAllInputs &&
+    techCountValue >= 1 &&
+    techCountValue <= 25 &&
+    hourlyRateValue >= 65 &&
+    hourlyRateValue <= 250 &&
+    monthlyInvoicesValue >= 10 &&
+    monthlyInvoicesValue <= 300 &&
+    monthlySoftwareCostValue >= 0;
 
-  const netMonthlyGain = monthlyValueRecovered - monthlySoftwareCost;
-  const annualNetROI = netMonthlyGain * 12;
-  const roiMultiplier = Math.max(1, Math.round(monthlyValueRecovered / Math.max(1, monthlySoftwareCost)));
+  // Avg hours saved per tech per week on routing & dispatch = 1.5 hrs.
+  // Avg hours saved per week on office invoicing = 3 hrs.
+  const weeklyHoursSaved = inputsAreValid ? techCountValue * 1.5 + 3 : 0;
+  const monthlyHoursSaved = weeklyHoursSaved * 4.33;
+  const monthlyValueRecovered = inputsAreValid
+    ? Math.round(monthlyHoursSaved * (hourlyRateValue * 0.65))
+    : 0;
+  const netMonthlyGain = monthlyValueRecovered - monthlySoftwareCostValue;
+  const annualNetROI = inputsAreValid ? netMonthlyGain * 12 : null;
+  const roiMultiplier = inputsAreValid
+    ? Math.max(1, Math.round(monthlyValueRecovered / Math.max(1, monthlySoftwareCostValue)))
+    : null;
 
   return (
     <div
@@ -60,10 +78,10 @@ export const PricingCalculator: React.FC = () => {
                   max="25"
                   step="1"
                   value={techCount}
-                  onChange={(e) => setTechCount(Number(e.target.value) || 0)}
+                  onChange={(e) => setTechCount(e.target.value)}
                   className="w-20 rounded-lg border border-[#D3DDE3] bg-[#F3F6F8] px-3 py-2 text-right text-sm font-bold font-data text-[#0F4C6E] focus:ring-2 focus:ring-[#0F4C6E]"
                 />
-                <span className="text-xs text-[#17242C]/60">{techCount === 1 ? 'Tech' : 'Techs'}</span>
+                <span className="text-xs text-[#17242C]/60">{techCount === '1' ? 'Tech' : 'Techs'}</span>
               </div>
             </div>
           </div>
@@ -83,7 +101,7 @@ export const PricingCalculator: React.FC = () => {
                   max="250"
                   step="5"
                   value={hourlyRate}
-                  onChange={(e) => setHourlyRate(Number(e.target.value) || 0)}
+                  onChange={(e) => setHourlyRate(e.target.value)}
                   className="w-24 rounded-lg border border-[#D3DDE3] bg-[#F3F6F8] px-3 py-2 text-right text-sm font-bold font-data text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
                 />
                 <span className="text-xs text-[#17242C]/60">/hr</span>
@@ -105,7 +123,7 @@ export const PricingCalculator: React.FC = () => {
                   max="300"
                   step="5"
                   value={monthlyInvoices}
-                  onChange={(e) => setMonthlyInvoices(Number(e.target.value) || 0)}
+                  onChange={(e) => setMonthlyInvoices(e.target.value)}
                   className="w-24 rounded-lg border border-[#D3DDE3] bg-[#F3F6F8] px-3 py-2 text-right text-sm font-bold font-data text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
                 />
                 <span className="text-xs text-[#17242C]/60">jobs/mo</span>
@@ -123,7 +141,7 @@ export const PricingCalculator: React.FC = () => {
               type="number"
               min="0"
               value={monthlySoftwareCost}
-              onChange={(e) => setMonthlySoftwareCost(Math.max(0, Number(e.target.value) || 0))}
+              onChange={(e) => setMonthlySoftwareCost(e.target.value)}
               className="w-full px-3 py-2.5 bg-[#F3F6F8] border border-[#D3DDE3] rounded-lg text-xs md:text-sm font-medium text-[#17242C] focus:ring-2 focus:ring-[#0F4C6E]"
             />
           </div>
@@ -137,13 +155,13 @@ export const PricingCalculator: React.FC = () => {
                 Estimated Net Annual Value
               </span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 font-data w-fit">
-                {roiMultiplier}x Estimated ROI
+                {roiMultiplier === null ? '—' : `${roiMultiplier}x Estimated ROI`}
               </span>
             </div>
 
             <div className="text-center py-2">
               <span className="text-3xl md:text-5xl font-extrabold text-[#0F4C6E] font-display">
-                +${annualNetROI.toLocaleString()}
+                {annualNetROI === null ? '—' : `${annualNetROI < 0 ? '-' : '+'}$${Math.abs(annualNetROI).toLocaleString()}`}
               </span>
               <p className="text-[10px] md:text-xs text-[#17242C]/70 mt-1 font-body">
                 Net Annual Value created via billable hours saved & faster invoicing
@@ -155,26 +173,32 @@ export const PricingCalculator: React.FC = () => {
               <div className="flex justify-between py-1 border-b border-[#D3DDE3]/40">
                 <span className="text-[#17242C]/70">Est. Software Subscription:</span>
                 <span className="font-data font-bold text-rose-700">
-                  -${monthlySoftwareCost.toLocaleString()}/mo
+                  {inputsAreValid ? `-$${monthlySoftwareCostValue.toLocaleString()}/mo` : '—'}
                 </span>
               </div>
               <div className="flex justify-between py-1 border-b border-[#D3DDE3]/40">
                 <span className="text-[#17242C]/70">Labor & Drive Time Recovered:</span>
                 <span className="font-data font-bold text-emerald-700">
-                  ~{Math.round(monthlyHoursSaved)} hrs/mo (+${monthlyValueRecovered.toLocaleString()})
+                  {inputsAreValid
+                    ? `~${Math.round(monthlyHoursSaved)} hrs/mo (+$${monthlyValueRecovered.toLocaleString()})`
+                    : '—'}
                 </span>
               </div>
               <div className="flex justify-between py-1 border-b border-[#D3DDE3]/40">
                 <span className="text-[#17242C]/70">Net Monthly Business Profit Lift:</span>
                 <span className="font-data font-bold text-[#0F4C6E]">
-                  +${netMonthlyGain.toLocaleString()}/mo
+                  {inputsAreValid
+                    ? `${netMonthlyGain < 0 ? '-' : '+'}$${Math.abs(netMonthlyGain).toLocaleString()}/mo`
+                    : '—'}
                 </span>
               </div>
             </div>
           </div>
 
           <div className="mt-4 pt-3 text-[10px] md:text-[11px] text-[#17242C]/60 italic leading-tight">
-            * Based on industry averages of 1.5 hours saved per field tech per week via routing, plus 3 hours/week on office invoicing.
+            {inputsAreValid
+              ? '* Based on industry averages of 1.5 hours saved per field tech per week via routing, plus 3 hours/week on office invoicing.'
+              : 'Enter all four values within the indicated ranges to calculate your estimate.'}
           </div>
         </div>
       </div>
